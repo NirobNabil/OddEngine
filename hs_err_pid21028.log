@@ -502,7 +502,7 @@ Event: 0.993 Thread 0x0000028097e25800 1063       4       java.text.DecimalForma
 Event: 0.993 Thread 0x0000028097e25800 nmethod 1063 0x0000028087b2c310 code [0x0000028087b2c4a0, 0x0000028087b2c518]
 Event: 0.993 Thread 0x0000028097e25800 1027       4       java.io.OutputStream::flush (1 bytes)
 Event: 0.993 Thread 0x0000028097e25800 nmethod 1027 0x0000028087b2c610 code [0x0000028087b2c7a0, 0x0000028087b2c7f8]
-Event: 0.993 Thread 0x0000028097e25800 1048       4       components.SpriteRenderer::start (1 bytes)
+Event: 0.993 Thread 0x0000028097e25800 1048       4       components.TriangleRenderer::start (1 bytes)
 Event: 0.994 Thread 0x0000028097e25800 nmethod 1048 0x0000028087b2c910 code [0x0000028087b2caa0, 0x0000028087b2caf8]
 Event: 0.997 Thread 0x00000280ffb65000 nmethod 1040 0x0000028087b2cc10 code [0x0000028087b2cec0, 0x0000028087b30610]
 Event: 0.998 Thread 0x00000280981b3000 nmethod 1062 0x0000028087b32690 code [0x0000028087b32860, 0x0000028087b32d48]

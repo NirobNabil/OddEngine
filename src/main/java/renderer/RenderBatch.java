@@ -1,6 +1,6 @@
 package renderer;
 
-import components.SpriteRenderer;
+import components.TriangleRenderer;
 import odd.Window;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -25,7 +25,7 @@ public class RenderBatch {
     private final int VERTEX_SIZE = 6;
     private final int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
 
-    private SpriteRenderer[] sprites;
+    private TriangleRenderer[] sprites;
     private int numSprites;
     private boolean hasRoom;
     private float[] vertices;
@@ -39,7 +39,7 @@ public class RenderBatch {
     public RenderBatch(int maxBatchSize) {
         shader = new Shader("assets/shaders/default.glsl");
         shader.compile();
-        this.sprites = new SpriteRenderer[maxBatchSize];
+        this.sprites = new TriangleRenderer[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 
         // 4 vertices quads
@@ -80,7 +80,7 @@ public class RenderBatch {
         glEnableVertexAttribArray(1);
     }
 
-    public void addSprite(SpriteRenderer spr) {
+    public void addSprite(TriangleRenderer spr) {
         // Get index and add renderObject
         int index = this.numSprites;
         this.sprites[index] = spr;
@@ -98,10 +98,13 @@ public class RenderBatch {
     private boolean done = false;
     public void render() {
 
-        int eboID = glGenBuffers();
+        if ( !done ) {
+            int eboID = glGenBuffers();
 //        elementIndices = generateIndices();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+        }
+
 
         if(!done) {
             System.out.print(VERTEX_SIZE);
@@ -140,7 +143,7 @@ public class RenderBatch {
     }
 
     private void loadVertexProperties(int index) {
-        SpriteRenderer sprite = this.sprites[index];
+        TriangleRenderer sprite = this.sprites[index];
 
         // Find offset within array (4 vertices per sprite)
         int offset = index * 3 * VERTEX_SIZE;

@@ -1,6 +1,6 @@
 package renderer;
 
-import components.SpriteRenderer;
+import components.TriangleRenderer;
 import odd.GameObject;
 
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ public class Renderer {
     }
 
     public void add(GameObject go) {
-        SpriteRenderer spr = go.getComponent(SpriteRenderer.class);
+        TriangleRenderer spr = go.getComponent(TriangleRenderer.class);
         if (spr != null) {
             add(spr);
         }
     }
 
-    private void add(SpriteRenderer sprite) {
+    private void add(TriangleRenderer sprite) {
         boolean added = false;
         for (RenderBatch batch : batches) {
             if (batch.hasRoom()) {

@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="managed to render a triangle">
+    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="forgot to add files last time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid21028.log" beforeDir="false" afterPath="$PROJECT_DIR$/hs_err_pid21028.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/components/FontRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/FontRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/ShapeRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/ShapeRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/SpriteRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/SpriteRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/components/SpriteRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/renderer/RenderBatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/RenderBatch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/renderer/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/Renderer.java" afterDir="false" />
     </list>
@@ -63,7 +64,6 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/renderer/Shader.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/components/ShapeRenderer.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/renderer/RenderBatchShape.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/components/SpriteRenderer.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -135,7 +135,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652599148611</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="managed to render a triangle">
+      <created>1652620381455</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1652620381455</updated>
+    </task>
+    <task id="LOCAL-00004" summary="forgot to add files last time">
+      <created>1652620487506</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1652620487506</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +166,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="kinda wrote code for the flow. couldn't compile yet." />
     <MESSAGE value="managed to render a triangle" />
-    <option name="LAST_COMMIT_MESSAGE" value="managed to render a triangle" />
+    <MESSAGE value="forgot to add files last time" />
+    <option name="LAST_COMMIT_MESSAGE" value="forgot to add files last time" />
   </component>
 </project>

@@ -1,6 +1,6 @@
 package odd;
 
-import components.SpriteRenderer;
+import components.TriangleRenderer;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -29,7 +29,7 @@ public class LevelEditorScene extends Scene {
                 float yPos = yOffset + (y * sizeY) + (padding * y);
 
                 GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
-                go.addComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, 1, 1)));
+                go.addComponent(new TriangleRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, 1, 1)));
                 this.addGameObjectToScene(go);
             }
         }
