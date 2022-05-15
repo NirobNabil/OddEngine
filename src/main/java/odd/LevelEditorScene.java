@@ -19,12 +19,12 @@ public class LevelEditorScene extends Scene {
 
         float totalWidth = (float)(600 - xOffset * 2);
         float totalHeight = (float)(300 - yOffset * 2);
-        float sizeX = totalWidth / 50.0f;
-        float sizeY = totalHeight / 50.0f;
+        float sizeX = totalWidth / 10.0f;
+        float sizeY = totalHeight / 10.0f;
         float padding = 5;
 
-        for (int x=0; x < 50; x++) {
-            for (int y=0; y < 50; y++) {
+        for (int x=0; x < 10; x++) {
+            for (int y=0; y < 10; y++) {
                 float xPos = xOffset + (x * sizeX) + (padding * x);
                 float yPos = yOffset + (y * sizeY) + (padding * y);
 

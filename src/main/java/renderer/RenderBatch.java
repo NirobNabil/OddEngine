@@ -93,6 +93,9 @@ public class RenderBatch {
         }
 
         // For now, we will rebuffer all data every frame
+        for( int i=0; i<numShapes; i++ ){
+            updateVertexProperties(i);
+        }
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
@@ -120,7 +123,31 @@ public class RenderBatch {
         Vector4f color = shape.getColor();
 
         Vector2f[] shapeVertices = shape.getVertices();
-        this.verticesOffset[index] = verticesArrayIndex;
+        this.verticesOffset[index] = this.verticesArrayIndex;
+
+        for( Vector2f vertex : shapeVertices ) {
+
+            vertices[this.verticesArrayIndex] = shape.gameObject.transform.position.x + vertex.x;
+            vertices[this.verticesArrayIndex + 1] = shape.gameObject.transform.position.y + vertex.y;
+
+            // Load color
+            vertices[this.verticesArrayIndex + 4] = color.z;
+            vertices[this.verticesArrayIndex + 3] = color.y;
+            vertices[this.verticesArrayIndex + 2] = color.x;
+            vertices[this.verticesArrayIndex + 5] = color.w;
+
+            this.verticesArrayIndex += VERTEX_SIZE;
+        }
+
+    }
+
+    private void updateVertexProperties(int index) {
+        ShapeRenderer shape = this.shapes[index];
+
+        Vector4f color = shape.getColor();
+
+        Vector2f[] shapeVertices = shape.getVertices();
+        verticesArrayIndex = this.verticesOffset[index];
 
         for( Vector2f vertex : shapeVertices ) {
 
@@ -135,8 +162,6 @@ public class RenderBatch {
 
             verticesArrayIndex += VERTEX_SIZE;
         }
-
-
     }
 
 

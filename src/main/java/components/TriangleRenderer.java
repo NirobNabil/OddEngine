@@ -12,8 +12,8 @@ public class TriangleRenderer extends ShapeRenderer {
         this.color = color;
         localVertices = new Vector2f[] {
                 new Vector2f( 0, 0),
-                new Vector2f( 10, 0),
-                new Vector2f( 10, 10)
+                new Vector2f( 30, 0),
+                new Vector2f( 30, 30)
         };
     }
 
@@ -28,6 +28,7 @@ public class TriangleRenderer extends ShapeRenderer {
 
     @Override
     public void update(float dt) {
+        rotate(1f);
     }
 
 
@@ -40,7 +41,14 @@ public class TriangleRenderer extends ShapeRenderer {
         return new int[] { 0, 2, 1 };
     }
 
-
+    // TODO: Optimize this?
+    public void rotate(float d) {
+        float deg = d * 0.0174533f;
+        for( int i=0; i<localVertices.length; i++ ) {
+            localVertices[i].x = (float) (localVertices[i].x*Math.cos(deg) - localVertices[i].y*Math.sin(deg));
+            localVertices[i].y = (float) (localVertices[i].x*Math.sin(deg) + localVertices[i].y*Math.cos(deg));
+        }
+    }
 
     public Vector4f getColor() {
         return this.color;
