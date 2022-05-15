@@ -1,13 +1,15 @@
 package renderer;
 
+import components.ShapeRenderer;
 import components.TriangleRenderer;
 import odd.GameObject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Renderer {
-    private final int MAX_BATCH_SIZE = 1000;
+    private final int MAX_BATCH_SIZE = 10000;
     private List<RenderBatch> batches;
 
     public Renderer() {
@@ -21,21 +23,24 @@ public class Renderer {
         }
     }
 
-    private void add(TriangleRenderer sprite) {
+    private void add(ShapeRenderer shape) {
         boolean added = false;
         for (RenderBatch batch : batches) {
-            if (batch.hasRoom()) {
-                batch.addSprite(sprite);
+            if (batch.roomsLeftForElementIndices() >= shape.getElementIndices().length ) {
+                System.out.println(batch.elementIndicesArrayIndex);
+                batch.addShape(shape);
                 added = true;
                 break;
             }
         }
 
         if (!added) {
+            System.out.println("came1");
             RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
             newBatch.start();
             batches.add(newBatch);
-            newBatch.addSprite(sprite);
+            newBatch.addShape(shape);
+            System.out.println("came2");
         }
     }
 

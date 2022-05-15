@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="forgot to add files last time">
+    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="renamed some stuff. still working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid21028.log" beforeDir="false" afterPath="$PROJECT_DIR$/hs_err_pid21028.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/FontRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/FontRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/SpriteRenderer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/renderer/RenderBatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/RenderBatch.java" afterDir="false" />
@@ -76,6 +73,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -149,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652620487506</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="renamed some stuff. still working">
+      <created>1652635442154</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1652635442154</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +172,7 @@
     <MESSAGE value="kinda wrote code for the flow. couldn't compile yet." />
     <MESSAGE value="managed to render a triangle" />
     <MESSAGE value="forgot to add files last time" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot to add files last time" />
+    <MESSAGE value="renamed some stuff. still working" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed some stuff. still working" />
   </component>
 </project>
