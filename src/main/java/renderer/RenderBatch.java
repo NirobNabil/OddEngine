@@ -1,8 +1,10 @@
 package renderer;
 
 import components.SpriteRenderer;
-import odd.Window;
+import jade.Window;
+import org.joml.Vector2f;
 import org.joml.Vector4f;
+import org.lwjgl.system.CallbackI;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
@@ -62,6 +64,15 @@ public class RenderBatch {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
+        System.out.println("Elements array:");
+        for( int i=0; i<4; i++ ) {
+            for (int ix = i * 6; ix < (i + 1) * 6; ix++) {
+                System.out.print(indices[ix]);
+                System.out.print(", ");
+            }
+            System.out.println();
+        }
+
         // Enable the buffer attribute pointers
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POS_OFFSET);
         glEnableVertexAttribArray(0);
@@ -84,7 +95,23 @@ public class RenderBatch {
         }
     }
 
+    private boolean done = false;
     public void render() {
+
+        if(!done) {
+            System.out.print(VERTEX_SIZE);
+            System.out.println("vertices array: ");
+            for(int ix=0; ix<4; ix++) {
+                for (int i = 0; i < VERTEX_SIZE; i++) {
+                    System.out.print(vertices[ix*VERTEX_SIZE+i]);
+                    System.out.print(", ");
+                }
+                System.out.println(" ;");
+            }
+            done = true;
+        }
+
+
         // For now, we will rebuffer all data every frame
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
@@ -111,25 +138,40 @@ public class RenderBatch {
         SpriteRenderer sprite = this.sprites[index];
 
         // Find offset within array (4 vertices per sprite)
-        int offset = index * 4 * VERTEX_SIZE;
+        int offset = index * 3 * VERTEX_SIZE;
 
         Vector4f color = sprite.getColor();
 
         // Add vertices with the appropriate properties
-        float xAdd = 1.0f;
-        float yAdd = 1.0f;
-        for (int i=0; i < 4; i++) {
-            if (i == 1) {
-                yAdd = 0.0f;
-            } else if (i == 2) {
-                xAdd = 0.0f;
-            } else if (i == 3) {
-                yAdd = 1.0f;
-            }
+//        float xAdd = 1.0f;
+//        float yAdd = 1.0f;
+//        for (int i=0; i < 4; i++) {
+//            if (i == 1) {
+//                yAdd = 0.0f;
+//            } else if (i == 2) {
+//                xAdd = 0.0f;
+//            } else if (i == 3) {
+//                yAdd = 1.0f;
+//            }
+//
+//            // Load position
+//            vertices[offset] = sprite.gameObject.transform.position.x + (xAdd * sprite.gameObject.transform.scale.x);
+//            vertices[offset + 1] = sprite.gameObject.transform.position.y + (yAdd * sprite.gameObject.transform.scale.y);
+//
+//            // Load color
+//            vertices[offset + 2] = color.x;
+//            vertices[offset + 3] = color.y;
+//            vertices[offset + 4] = color.z;
+//            vertices[offset + 5] = color.w;
+//
+//            offset += VERTEX_SIZE;
+//        }
 
-            // Load position
-            vertices[offset] = sprite.gameObject.transform.position.x + (xAdd * sprite.gameObject.transform.scale.x);
-            vertices[offset + 1] = sprite.gameObject.transform.position.y + (yAdd * sprite.gameObject.transform.scale.y);
+        Vector2f[] shapeVertices = sprite.getVertices();
+        for( Vector2f vertex : shapeVertices ) {
+            System.out.print(vertex);
+            vertices[offset] = sprite.gameObject.transform.position.x + vertex.x;
+            vertices[offset + 1] = sprite.gameObject.transform.position.y + vertex.y;
 
             // Load color
             vertices[offset + 2] = color.x;
@@ -139,11 +181,13 @@ public class RenderBatch {
 
             offset += VERTEX_SIZE;
         }
+
+
     }
 
     private int[] generateIndices() {
         // 6 indices per quad (3 per triangle)
-        int[] elements = new int[6 * maxBatchSize];
+        int[] elements = new int[3 * maxBatchSize];
         for (int i=0; i < maxBatchSize; i++) {
             loadElementIndices(elements, i);
         }
@@ -152,19 +196,19 @@ public class RenderBatch {
     }
 
     private void loadElementIndices(int[] elements, int index) {
-        int offsetArrayIndex = 6 * index;
-        int offset = 4 * index;
+        int offsetArrayIndex = 3 * index;
+        int offset = 3 * index;
 
         // 3, 2, 0, 0, 2, 1        7, 6, 4, 4, 6, 5
         // Triangle 1
-        elements[offsetArrayIndex] = offset + 3;
+        elements[offsetArrayIndex] = offset + 0;
         elements[offsetArrayIndex + 1] = offset + 2;
-        elements[offsetArrayIndex + 2] = offset + 0;
+        elements[offsetArrayIndex + 2] = offset + 1;
 
         // Triangle 2
-        elements[offsetArrayIndex + 3] = offset + 0;
-        elements[offsetArrayIndex + 4] = offset + 2;
-        elements[offsetArrayIndex + 5] = offset + 1;
+//        elements[offsetArrayIndex + 3] = offset + 0;
+//        elements[offsetArrayIndex + 4] = offset + 2;
+//        elements[offsetArrayIndex + 5] = offset + 1;
     }
 
     public boolean hasRoom() {

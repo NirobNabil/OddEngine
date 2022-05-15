@@ -1,48 +1,46 @@
 package renderer;
 
-import components.ShapeRenderer;
 import components.SpriteRenderer;
-import odd.GameObject;
+import jade.GameObject;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Renderer {
     private final int MAX_BATCH_SIZE = 1000;
-    private List<RenderBatchShape> batches;
+    private List<RenderBatch> batches;
 
     public Renderer() {
         this.batches = new ArrayList<>();
     }
 
     public void add(GameObject go) {
-        ShapeRenderer shape = go.getComponent(ShapeRenderer.class);
-        if (shape != null) {
-            add(shape);
+        SpriteRenderer spr = go.getComponent(SpriteRenderer.class);
+        if (spr != null) {
+            add(spr);
         }
     }
 
-    private void add(ShapeRenderer shape) {
+    private void add(SpriteRenderer sprite) {
         boolean added = false;
-        for (RenderBatchShape batch : batches) {
+        for (RenderBatch batch : batches) {
             if (batch.hasRoom()) {
-                batch.addShape(shape);
+                batch.addSprite(sprite);
                 added = true;
                 break;
             }
         }
 
         if (!added) {
-            RenderBatchShape newBatch = new RenderBatchShape(MAX_BATCH_SIZE);
+            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
             newBatch.start();
             batches.add(newBatch);
-            newBatch.addShape(shape);
+            newBatch.addSprite(sprite);
         }
     }
 
     public void render() {
-        for (RenderBatchShape batch : batches) {
+        for (RenderBatch batch : batches) {
             batch.render();
         }
     }
