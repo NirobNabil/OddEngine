@@ -1,10 +1,10 @@
 package components;
 
-import jade.Component;
+import odd.Component;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-public class SpriteRenderer extends Component {
+public class SpriteRenderer extends ShapeRenderer {
 
     private Vector4f color;
     public Vector2f[] localVertices, globalVertices;
@@ -39,6 +39,11 @@ public class SpriteRenderer extends Component {
     public Vector2f[] getVertices() {
         generateGlobalVertices();
         return globalVertices;
+    }
+
+    @Override
+    public int[] getElementIndices() {
+        return new int[] { 0, 2, 1 };
     }
 
 

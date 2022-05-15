@@ -1,8 +1,6 @@
 package components;
 
-import jade.Component;
-
-import java.awt.font.FontRenderContext;
+import odd.Component;
 
 public class FontRenderer extends Component {
 

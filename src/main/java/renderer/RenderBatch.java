@@ -1,10 +1,9 @@
 package renderer;
 
 import components.SpriteRenderer;
-import jade.Window;
+import odd.Window;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import org.lwjgl.system.CallbackI;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
@@ -30,6 +29,8 @@ public class RenderBatch {
     private int numSprites;
     private boolean hasRoom;
     private float[] vertices;
+    private int[] elementIndices;
+    private int elementIndicesArrayIndex = 0;
 
     private int vaoID, vboID;
     private int maxBatchSize;
@@ -43,6 +44,7 @@ public class RenderBatch {
 
         // 4 vertices quads
         vertices = new float[maxBatchSize * 4 * VERTEX_SIZE];
+        elementIndices = new int[maxBatchSize * 6];
 
         this.numSprites = 0;
         this.hasRoom = true;
@@ -59,19 +61,16 @@ public class RenderBatch {
         glBufferData(GL_ARRAY_BUFFER, vertices.length * Float.BYTES, GL_DYNAMIC_DRAW);
 
         // Create and upload indices buffer
-        int eboID = glGenBuffers();
-        int[] indices = generateIndices();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
-        System.out.println("Elements array:");
-        for( int i=0; i<4; i++ ) {
-            for (int ix = i * 6; ix < (i + 1) * 6; ix++) {
-                System.out.print(indices[ix]);
-                System.out.print(", ");
-            }
-            System.out.println();
-        }
+
+//        System.out.println("Elements array:");
+//        for( int i=0; i<4; i++ ) {
+//            for (int ix = i * 6; ix < (i + 1) * 6; ix++) {
+//                System.out.print(elementIndices[ix]);
+//                System.out.print(", ");
+//            }
+//            System.out.println();
+//        }
 
         // Enable the buffer attribute pointers
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POS_OFFSET);
@@ -89,6 +88,7 @@ public class RenderBatch {
 
         // Add properties to local vertices array
         loadVertexProperties(index);
+        loadElementIndices(index);
 
         if (numSprites >= this.maxBatchSize) {
             this.hasRoom = false;
@@ -97,6 +97,11 @@ public class RenderBatch {
 
     private boolean done = false;
     public void render() {
+
+        int eboID = glGenBuffers();
+//        elementIndices = generateIndices();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
 
         if(!done) {
             System.out.print(VERTEX_SIZE);
@@ -185,30 +190,31 @@ public class RenderBatch {
 
     }
 
-    private int[] generateIndices() {
-        // 6 indices per quad (3 per triangle)
-        int[] elements = new int[3 * maxBatchSize];
-        for (int i=0; i < maxBatchSize; i++) {
-            loadElementIndices(elements, i);
+//    private int[] generateIndices() {
+//        // 6 indices per quad (3 per triangle)
+//        int[] elements = new int[3 * maxBatchSize];
+//        for (int i=0; i < maxBatchSize; i++) {
+//            loadElementIndices(elements, i);
+//        }
+//
+//        return elements;
+//    }
+
+    private void loadElementIndices(int index) {
+//        int offsetArrayIndex = 3 * index;
+//        int offset = 3 * index;
+//
+//        // 3, 2, 0, 0, 2, 1        7, 6, 4, 4, 6, 5
+//        // Triangle 1
+//        elements[offsetArrayIndex] = offset + 0;
+//        elements[offsetArrayIndex + 1] = offset + 2;
+//        elements[offsetArrayIndex + 2] = offset + 1;
+
+        int[] shapeElementIndices = sprites[index].getElementIndices();
+        for( int elementIndex : shapeElementIndices ) {
+            elementIndices[elementIndicesArrayIndex++] = elementIndex;
         }
 
-        return elements;
-    }
-
-    private void loadElementIndices(int[] elements, int index) {
-        int offsetArrayIndex = 3 * index;
-        int offset = 3 * index;
-
-        // 3, 2, 0, 0, 2, 1        7, 6, 4, 4, 6, 5
-        // Triangle 1
-        elements[offsetArrayIndex] = offset + 0;
-        elements[offsetArrayIndex + 1] = offset + 2;
-        elements[offsetArrayIndex + 2] = offset + 1;
-
-        // Triangle 2
-//        elements[offsetArrayIndex + 3] = offset + 0;
-//        elements[offsetArrayIndex + 4] = offset + 2;
-//        elements[offsetArrayIndex + 5] = offset + 1;
     }
 
     public boolean hasRoom() {
