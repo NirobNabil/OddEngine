@@ -27,7 +27,7 @@ public class Renderer {
         boolean added = false;
         for (RenderBatch batch : batches) {
             if (batch.roomsLeftForElementIndices() >= shape.getElementIndices().length ) {
-                System.out.println(batch.elementIndicesArrayIndex);
+//                // System.out.println(batch.elementIndicesArrayIndex);
                 batch.addShape(shape);
                 added = true;
                 break;
@@ -35,12 +35,12 @@ public class Renderer {
         }
 
         if (!added) {
-            System.out.println("came1");
+            // System.out.println("came1");
             RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
             newBatch.start();
             batches.add(newBatch);
             newBatch.addShape(shape);
-            System.out.println("came2");
+            // System.out.println("came2");
         }
     }
 

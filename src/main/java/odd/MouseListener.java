@@ -1,5 +1,7 @@
 package odd;
 
+import org.joml.Vector2f;
+
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
@@ -9,6 +11,7 @@ public class MouseListener {
     private double xPos, yPos, lastY, lastX;
     private boolean mouseButtonPressed[] = new boolean[3];
     private boolean isDragging;
+    public GameObject draggingObject = null;   // gameobject the mouse is currently dragging. is set by handleDragging function of gameobject
 
     private MouseListener() {
         this.scrollX = 0.0;
@@ -28,6 +31,7 @@ public class MouseListener {
     }
 
     public static void mousePosCallback(long window, double xpos, double ypos) {
+//        // System.out.println(new Vector2f((float)xpos, (float)ypos));
         get().lastX = get().xPos;
         get().lastY = get().yPos;
         get().xPos = xpos;
@@ -44,6 +48,7 @@ public class MouseListener {
             if (button < get().mouseButtonPressed.length) {
                 get().mouseButtonPressed[button] = false;
                 get().isDragging = false;
+                get().draggingObject = null;
             }
         }
     }
@@ -65,7 +70,7 @@ public class MouseListener {
     }
 
     public static float getY() {
-        return (float)get().yPos;
+        return Window.get().height - (float)get().yPos;
     }
 
     public static float getDx() {

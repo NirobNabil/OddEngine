@@ -30,12 +30,12 @@ public class Shader {
 
             // Find the first pattern after #type 'pattern'
             int index = source.indexOf("#type") + 6;
-            int eol = source.indexOf("\r\n", index);
+            int eol = source.indexOf("\n", index);
             String firstPattern = source.substring(index, eol).trim();
 
             // Find the second pattern after #type 'pattern'
             index = source.indexOf("#type", eol) + 6;
-            eol = source.indexOf("\r\n", index);
+            eol = source.indexOf("\n", index);
             String secondPattern = source.substring(index, eol).trim();
 
             if (firstPattern.equals("vertex")) {
@@ -75,8 +75,8 @@ public class Shader {
         int success = glGetShaderi(vertexID, GL_COMPILE_STATUS);
         if (success == GL_FALSE) {
             int len = glGetShaderi(vertexID, GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: '" + filepath + "'\n\tVertex shader compilation failed.");
-            System.out.println(glGetShaderInfoLog(vertexID, len));
+            // System.out.println("ERROR: '" + filepath + "'\n\tVertex shader compilation failed.");
+            // System.out.println(glGetShaderInfoLog(vertexID, len));
             assert false : "";
         }
 
@@ -90,8 +90,8 @@ public class Shader {
         success = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
         if (success == GL_FALSE) {
             int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: '" + filepath + "'\n\tFragment shader compilation failed.");
-            System.out.println(glGetShaderInfoLog(fragmentID, len));
+            // System.out.println("ERROR: '" + filepath + "'\n\tFragment shader compilation failed.");
+            // System.out.println(glGetShaderInfoLog(fragmentID, len));
             assert false : "";
         }
 
@@ -105,8 +105,8 @@ public class Shader {
         success = glGetProgrami(shaderProgramID, GL_LINK_STATUS);
         if (success == GL_FALSE) {
             int len = glGetProgrami(shaderProgramID, GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: '" + filepath + "'\n\tLinking of shaders failed.");
-            System.out.println(glGetProgramInfoLog(shaderProgramID, len));
+            // System.out.println("ERROR: '" + filepath + "'\n\tLinking of shaders failed.");
+            // System.out.println(glGetProgramInfoLog(shaderProgramID, len));
             assert false : "";
         }
     }

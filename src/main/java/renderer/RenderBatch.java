@@ -15,8 +15,8 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 public class RenderBatch {
     // Vertex
     // ======
-    // Pos               Color
-    // float, float,     float, float, float, float
+    // Pos                     Color
+    // float, float, float     float, float, float, float
     private final int POS_SIZE = 2;
     private final int COLOR_SIZE = 4;
 
@@ -73,13 +73,13 @@ public class RenderBatch {
         try {
             this.shapes[index] = spr;
         }catch(Exception e){
-            System.out.println("in addshape");
+            // System.out.println("in addshape");
         }
         this.numShapes++;
 
         // Add properties to local vertices array
-        loadVertexProperties(index);
         loadElementIndices(index);
+        loadVertexProperties(index);
     }
 
     private boolean elementIndicesToUpdate = true;
@@ -168,7 +168,7 @@ public class RenderBatch {
     private void loadElementIndices(int index) {
 
         int[] shapeElementIndices = shapes[index].getElementIndices();
-        this.elementIndicesOffset[index] = elementIndicesArrayIndex;
+        this.elementIndicesOffset[index] = this.verticesArrayIndex / VERTEX_SIZE;
 
         for( int elementIndex : shapeElementIndices ) {
             elementIndices[elementIndicesArrayIndex++] = this.elementIndicesOffset[index] + elementIndex;

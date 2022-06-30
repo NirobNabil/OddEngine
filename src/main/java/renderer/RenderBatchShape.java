@@ -64,13 +64,13 @@
 //        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
 //        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 //
-////        System.out.println("Elements array:");
+////        // // System.out.println("Elements array:");
 ////        for( int i=0; i<4; i++ ) {
 ////            for (int ix = i * 6; ix < (i + 1) * 6; ix++) {
-////                System.out.print(indices[ix]);
-////                System.out.print(", ");
+////                // System.out.print(indices[ix]);
+////                // System.out.print(", ");
 ////            }
-////            System.out.println();
+////            // System.out.println();
 ////        }
 //
 //        // Enable the buffer attribute pointers
@@ -99,14 +99,14 @@
 //    public void render() {
 //
 ////        if(!done) {
-////            System.out.print(VERTEX_SIZE);
-////            System.out.println("vertices array: ");
+////            // System.out.print(VERTEX_SIZE);
+////            // System.out.println("vertices array: ");
 ////            for(int ix=0; ix<4; ix++) {
 ////                for (int i = 0; i < VERTEX_SIZE; i++) {
-////                    System.out.print(vertices[ix*VERTEX_SIZE+i]);
-////                    System.out.print(", ");
+////                    // System.out.print(vertices[ix*VERTEX_SIZE+i]);
+////                    // System.out.print(", ");
 ////                }
-////                System.out.println(" ;");
+////                // System.out.println(" ;");
 ////            }
 ////            done = true;
 ////        }
@@ -182,7 +182,7 @@
 //
 //    private int[] generateIndices() {
 //        // 6 indices per quad (3 per triangle)
-//        System.out.println(numSprites);
+//        // System.out.println(numSprites);
 //        int[] elements = new int[3 * numSprites];
 //        for (int i=0; i < numSprites; i++) {
 //            loadElementIndices(elements, i);

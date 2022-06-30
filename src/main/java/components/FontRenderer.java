@@ -7,7 +7,7 @@ public class FontRenderer extends Component {
     @Override
     public void start() {
         if (gameObject.getComponent(TriangleRenderer.class) != null) {
-            System.out.println("Found Font Renderer!");
+            // System.out.println("Found Font Renderer!");
         }
     }
 

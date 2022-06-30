@@ -7,8 +7,11 @@ import java.util.List;
 
 public abstract class Scene {
 
+    public String lockedBy = "none";
     protected Renderer renderer = new Renderer();
-    protected Camera camera;
+
+    // TODO: Change camera to protected?
+    public Camera camera;
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
 

@@ -1,32 +1,24 @@
 package components;
 
-import odd.Camera;
-import odd.MouseListener;
-import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-public class TriangleRenderer extends ShapeRenderer {
+public class RectangleRenderer extends ShapeRenderer {
 
     private Vector4f color;
-
-    private Vector2f[] vertices_identity = new Vector2f[] {
-            new Vector2f( 0, 0),
-            new Vector2f( 1, 0),
-            new Vector2f( 1, 1)
-    };
     public Vector2f[] localVertices;
 
-    public TriangleRenderer(Vector4f color) {
+    public RectangleRenderer(Vector4f color) {
         this.color = color;
         localVertices = new Vector2f[] {
                 new Vector2f( 0, 0),
-                new Vector2f( 1, 0),
-                new Vector2f( 1, 1)
-        };;
+                new Vector2f( 30, 0),
+                new Vector2f( 30, 30),
+                new Vector2f( 0, 30)
+        };
     }
 
-    public TriangleRenderer(Vector4f color, Vector2f[] vertices) {
+    public RectangleRenderer(Vector4f color, Vector2f[] vertices) {
         this.color = color;
         localVertices = vertices;
     }
@@ -37,13 +29,7 @@ public class TriangleRenderer extends ShapeRenderer {
 
     @Override
     public void update(float dt) {
-        if( this.gameObject != null ) {
-            for( int i=0; i<this.localVertices.length; i++ ) {
-                this.localVertices[i].y = this.vertices_identity[i].y * this.gameObject.transform.scale.y;
-                this.localVertices[i].x = this.vertices_identity[i].x * this.gameObject.transform.scale.x;
-            }
-        }
-//        rotate(1f);
+        rotate(1f);
     }
 
 
@@ -53,7 +39,7 @@ public class TriangleRenderer extends ShapeRenderer {
 
     @Override
     public int[] getElementIndices() {
-        return new int[] { 0, 2, 1 };
+        return new int[] { 0, 2, 1, 0, 3, 2 };
     }
 
     // TODO: Optimize this?

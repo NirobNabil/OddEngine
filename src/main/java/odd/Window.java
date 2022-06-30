@@ -1,9 +1,12 @@
 package odd;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import util.Time;
+
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -12,7 +15,7 @@ import static org.lwjgl.opengl.GL13.GL_MULTISAMPLE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-    private int width, height;
+    public int width, height;
     private String title;
     private long glfwWindow;
 
@@ -64,7 +67,7 @@ public class Window {
     }
 
     public void run() {
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+        // System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
         init();
         loop();
@@ -146,6 +149,13 @@ public class Window {
             if (dt >= 0) {
                 currentScene.update(dt);
             }
+
+//            System.out.println("x: " + MouseListener.getX() + " y: " + MouseListener.getY());
+            IntBuffer w = BufferUtils.createIntBuffer(1);
+            IntBuffer h = BufferUtils.createIntBuffer(1);
+            glfwGetWindowSize(glfwWindow, w, h);
+            this.width = w.get(0);
+            this.height = h.get(0);
 
             glfwSwapBuffers(glfwWindow);
 

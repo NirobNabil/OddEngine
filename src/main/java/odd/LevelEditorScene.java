@@ -1,10 +1,12 @@
 package odd;
 
+import components.RectangleRenderer;
 import components.TriangleRenderer;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 public class LevelEditorScene extends Scene {
+
 
     public LevelEditorScene() {
 
@@ -12,32 +14,32 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
-        this.camera = new Camera(new Vector2f(-250, 0));
+        this.camera = new Camera(new Vector2f(0, 0));
 
-        int xOffset = 10;
-        int yOffset = 10;
+        int xOffset = 0;
+        int yOffset = 0;
 
-        float totalWidth = (float)(600 - xOffset * 2);
-        float totalHeight = (float)(300 - yOffset * 2);
-        float sizeX = totalWidth / 10.0f;
-        float sizeY = totalHeight / 10.0f;
-        float padding = 5;
+        // starts laying out objects from bottom-left
+        int objects_in_row = 3;
+        float object_size = 100f;
+        float padding = 5f;
+        Vector2f starting_pos = new Vector2f(0, 0);
 
-        for (int x=0; x < 10; x++) {
-            for (int y=0; y < 10; y++) {
-                float xPos = xOffset + (x * sizeX) + (padding * x);
-                float yPos = yOffset + (y * sizeY) + (padding * y);
-
-                GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
-                go.addComponent(new TriangleRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, 1, 1)));
+        for (int i = 0; i < objects_in_row; i++) {
+            for (int ix = 0; ix < objects_in_row; ix++) {
+                float x = starting_pos.x + (object_size + padding) * ix;
+                float y = starting_pos.y + (object_size + padding) * i;
+                GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(x, y), new Vector2f(object_size, object_size)), this);
+                go.addComponent(new TriangleRenderer(new Vector4f(1, 1, 1, 1)));
                 this.addGameObjectToScene(go);
             }
         }
     }
 
+
     @Override
     public void update(float dt) {
-//        System.out.println("FPS: " + (1.0f / dt));
+//        // System.out.println("FPS: " + (1.0f / dt));
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);

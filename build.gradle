@@ -9,7 +9,7 @@ sourceCompatibility = 1.11
 
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.10.4"
-project.ext.lwjglNatives = "natives-windows"
+project.ext.lwjglNatives = "natives-linux"
 
 repositories {
     mavenCentral()
