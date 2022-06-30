@@ -1,5 +1,6 @@
 package odd;
 
+import components.CircleRenderer;
 import components.RectangleRenderer;
 import components.TriangleRenderer;
 import org.joml.Vector2f;
@@ -30,8 +31,13 @@ public class LevelEditorScene extends Scene {
                 float x = starting_pos.x + (object_size + padding) * ix;
                 float y = starting_pos.y + (object_size + padding) * i;
                 GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(x, y), new Vector2f(object_size, object_size)), this);
-                go.addComponent(new TriangleRenderer(new Vector4f(1, 1, 1, 1)));
+                go.addComponent(new CircleRenderer(new Vector4f(0, 1, 0, 1)));
+
+                GameObject go2 = new GameObject("Obj" + x + object_size*5 + "" + y, new Transform(new Vector2f(x+object_size*5, y), new Vector2f(object_size, object_size)), this);
+                go2.addComponent(new TriangleRenderer(new Vector4f(1, 0, 0, 1)));
+
                 this.addGameObjectToScene(go);
+//                this.addGameObjectToScene(go2);
             }
         }
     }

@@ -5,21 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="added rectangleRenderer">
-      <change afterPath="$PROJECT_DIR$/src/main/java/components/RectangleRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/shaders/circleShader.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/components/CircleRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/RenderBatchCircle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/RenderBatchPolygon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/shaders/default.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/default.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/FontRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/FontRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/TriangleRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/odd/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/odd/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/odd/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/LevelScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/odd/MouseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/MouseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/odd/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/Scene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/odd/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/renderer/RenderBatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/RenderBatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/RenderBatchShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/RenderBatchShape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/renderer/RenderBatchShape.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/renderer/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/renderer/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/renderer/Shader.java" afterDir="false" />
     </list>
@@ -77,7 +73,6 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/odd/LevelScene.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/odd/Transform.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/renderer/RenderBatchShape.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/renderer/Shader.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">

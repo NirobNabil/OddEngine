@@ -1,5 +1,6 @@
 package renderer;
 
+import components.CircleRenderer;
 import components.ShapeRenderer;
 import components.TriangleRenderer;
 import odd.GameObject;
@@ -17,17 +18,21 @@ public class Renderer {
     }
 
     public void add(GameObject go) {
-        TriangleRenderer spr = go.getComponent(TriangleRenderer.class);
-        if (spr != null) {
-            add(spr);
+        ShapeRenderer shape = go.getComponent(ShapeRenderer.class);
+        if (shape != null) {
+            if( shape instanceof CircleRenderer ) {
+                System.out.println("Added Circle");
+                addToCircleRendererBatch( shape );
+            }else if( shape instanceof TriangleRenderer ) {
+                addToTriangleRendererBatch( shape );
+            }
         }
     }
 
-    private void add(ShapeRenderer shape) {
+    private void addToTriangleRendererBatch (ShapeRenderer shape) {
         boolean added = false;
         for (RenderBatch batch : batches) {
-            if (batch.roomsLeftForElementIndices() >= shape.getElementIndices().length ) {
-//                // System.out.println(batch.elementIndicesArrayIndex);
+            if ( batch instanceof RenderBatchPolygon && batch.roomsLeftForElementIndices() >= shape.getElementIndices().length ) {
                 batch.addShape(shape);
                 added = true;
                 break;
@@ -35,17 +40,35 @@ public class Renderer {
         }
 
         if (!added) {
-            // System.out.println("came1");
-            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
+            System.out.println("Came");
+            RenderBatchPolygon newBatch = new RenderBatchPolygon(MAX_BATCH_SIZE);
             newBatch.start();
             batches.add(newBatch);
             newBatch.addShape(shape);
-            // System.out.println("came2");
+        }
+    }
+
+    private void addToCircleRendererBatch ( ShapeRenderer circle ) {
+        boolean added = false;
+        for (RenderBatch batch : batches) {
+            if ( batch instanceof RenderBatchCircle && batch.roomsLeftForElementIndices() >= circle.getElementIndices().length ) {
+                batch.addShape(circle);
+                added = true;
+                break;
+            }
+        }
+
+        if (!added) {
+            RenderBatchCircle newBatch = new RenderBatchCircle(100);
+            newBatch.start();
+            batches.add(newBatch);
+            newBatch.addShape(circle);
         }
     }
 
     public void render() {
         for (RenderBatch batch : batches) {
+            System.out.println(batch.getClass());
             batch.render();
         }
     }

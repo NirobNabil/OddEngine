@@ -98,7 +98,7 @@ public class GameObject {
         else if( MouseListener.get().draggingObject != this ) return;
 
         this.transform.position.x = mouse.getX() - this.dragInitialMouseRelativePosition.x;
-        this.transform.position.y = mouse.getX() - this.dragInitialMouseRelativePosition.y;
+        this.transform.position.y = mouse.getY() - this.dragInitialMouseRelativePosition.y;
 
     }
 }
