@@ -10,12 +10,25 @@ sourceCompatibility = 1.11
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.10.4"
 project.ext.lwjglNatives = "natives-linux"
+project.ext.imguiVersion = '1.76-0.9'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+
+    testImplementation("junit:junit:4.13")
+
+    implementation "io.imgui.java:binding:$imguiVersion"
+    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+
+    // Include all available natives, but it's likely that you want something specific
+//    runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
+//    runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
+    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
+    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
+
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"

@@ -44,7 +44,7 @@ public class RectangleRenderer extends ShapeRenderer {
 
     // TODO: Optimize this?
     public void rotate(float d) {
-        float deg = d * 0.0174533f;
+        float deg = (float)Math.toRadians(d);
         for( int i=0; i<localVertices.length; i++ ) {
             localVertices[i].x = (float) (localVertices[i].x*Math.cos(deg) - localVertices[i].y*Math.sin(deg));
             localVertices[i].y = (float) (localVertices[i].x*Math.sin(deg) + localVertices[i].y*Math.cos(deg));
