@@ -4,25 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="added rectangleRenderer">
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/forces/ForceGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/forces/ForceRegistration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/forces/ForceRegistry.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/AABB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/Box2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/Circle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/Collider2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/Line2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/Ray2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/primitives/RaycastResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/rigidbody/IntersectionDetector2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/rigidbody/Rigidbody2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/AssertPool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/Omath.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/physics2d/CollisionDetectorTests.java" afterDir="false" />
+    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/components/RectangleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/components/RectangleRenderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,11 +82,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "last_opened_file_path": "/home/twin_n/workspace/projects/oddengine/src/main/java/physics2d/forces"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;last_opened_file_path&quot;: &quot;/home/twin_n/workspace/projects/oddengine/src/main/java/physics2d/forces&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/physics2d/forces" />
