@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="added rectangleRenderer">
+      <change afterPath="$PROJECT_DIR$/assets/shaders/debugLine2D.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/PhysicsSystem2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/forces/Gravity2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/DebugDraw.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/AssetPool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/physics2d/rigidbody/Rigidbody2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/physics2d/rigidbody/Rigidbody2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/AssertPool.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,11 +92,12 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;last_opened_file_path&quot;: &quot;/home/twin_n/workspace/projects/oddengine/src/main/java/physics2d/forces&quot;
+    &quot;last_opened_file_path&quot;: &quot;/home/twin_n/workspace/projects/oddengine/assets/shaders&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/shaders" />
       <recent name="$PROJECT_DIR$/src/main/java/physics2d/forces" />
       <recent name="$PROJECT_DIR$/src/main/java/physics2d" />
       <recent name="$PROJECT_DIR$/src/main/java/physics2d/primitives" />
@@ -98,10 +107,13 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="util" />
+      <recent name="renderer" />
+      <recent name="physics2d" />
       <recent name="physics2d.forces" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.CollisionDetectorTests">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="BUNDLED" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />

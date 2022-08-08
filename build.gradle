@@ -20,14 +20,14 @@ dependencies {
 
     testImplementation("junit:junit:4.13")
 
-    implementation "io.imgui.java:binding:$imguiVersion"
-    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+//    implementation "io.imgui.java:binding:$imguiVersion"
+//    implementation "io.imgui.java:lwjgl3:$imguiVersion"
 
     // Include all available natives, but it's likely that you want something specific
 //    runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
 //    runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
-    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
-    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
+//    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
+//    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
 
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
