@@ -7,12 +7,15 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.11
 
-project.ext.lwjglVersion = "3.2.3"
+project.ext.lwjglVersion = "3.3.1"
 project.ext.jomlVersion = "1.10.4"
+//project.ext.lwjglNatives = "natives-windows"
 project.ext.lwjglNatives = "natives-linux"
 project.ext.imguiVersion = '1.76-0.9'
 
 repositories {
+    //jcenter()
+    gradlePluginPortal()
     mavenCentral()
 }
 
@@ -29,7 +32,20 @@ dependencies {
 //    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
 //    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
 
-    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    // ImGUI stuff
+    implementation "io.imgui.java:binding:$imguiVersion"
+    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+
+    // Include all available natives, but it's likely that you want something specific
+//    runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
+    //runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
+    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
+    //runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
+
+
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+
+    implementation platform("org.lwjgl:lwjgl-bom:3.3.1")
 
     implementation "org.lwjgl:lwjgl"
     implementation "org.lwjgl:lwjgl-assimp"
@@ -45,5 +61,11 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
-    implementation "org.joml:joml:${jomlVersion}"
+    implementation "org.joml:joml:1.10.4"
+
+    ['', '-opengl', '-glfw'].each {
+        implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
+
+        runtimeOnly "org.lwjgl:lwjgl$it::natives-windows"
+    }
 }

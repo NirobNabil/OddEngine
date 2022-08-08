@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="added rectangleRenderer">
-      <change afterPath="$PROJECT_DIR$/assets/shaders/debugLine2D.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/PhysicsSystem2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/physics2d/forces/Gravity2D.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/renderer/DebugDraw.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/AssetPool.java" afterDir="false" />
+    <list default="true" id="cb6ae3c0-922a-4a30-ba90-454b3298c484" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/odd/LevelEditorScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/physics2d/rigidbody/Rigidbody2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/physics2d/rigidbody/Rigidbody2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/AssertPool.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
