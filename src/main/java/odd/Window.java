@@ -20,7 +20,6 @@ public class Window {
     private boolean fadeToBlack = false;
 
     private static Window window = null;
-
     private static Scene currentScene;
 
     private Window() {
@@ -117,17 +116,12 @@ public class Window {
         // Make the window visible
         glfwShowWindow(glfwWindow);
 
-
-
-
-
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
-
 
         //glEnable(GL_MULTISAMPLE);
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
