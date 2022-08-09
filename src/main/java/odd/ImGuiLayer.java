@@ -153,7 +153,7 @@ public class ImGuiLayer {
 
         // Fonts merge example
         fontConfig.setPixelSnapH(true);
-        fontAtlas.addFontFromFileTTF("assets/fonts/SupermercadoOne-Regular.ttf", 20, fontConfig);
+        fontAtlas.addFontFromFileTTF("assets/fonts/OCRAEXT.TTF", 15, fontConfig);
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
 
