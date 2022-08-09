@@ -107,6 +107,7 @@ public class Rigidbody2D extends Component {
     }
 
     public Collider2D getCollider() {
+        if( this.collider == null ) throw new NullPointerException("Collider is not set");
         return this.collider;
     }
 

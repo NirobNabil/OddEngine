@@ -5,6 +5,8 @@ import physics2d.rigidbody.Rigidbody2D;
 
 public class Circle extends Collider2D {
     private float radius = 1.0f;
+    public String name = "";
+
     private Rigidbody2D rigidbody = null;
 
     public float getRadius() {
@@ -21,5 +23,6 @@ public class Circle extends Collider2D {
 
     public void setRigidbody(Rigidbody2D rb) {
         this.rigidbody = rb;
+        this.name = rb.gameObject.name;
     }
 }

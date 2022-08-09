@@ -1,5 +1,6 @@
 package physics2d;
 
+import imguiLayer.Debug;
 import org.joml.Vector2f;
 import physics2d.forces.ForceRegistry;
 import physics2d.forces.Gravity2D;
@@ -108,6 +109,7 @@ public class PhysicsSystem2D {
         if (relativeVel.dot(relativeNormal) > 0.0f) {
             return;
         }
+
 
         float e = Math.min(a.getCor(), b.getCor());
         float numerator = (-(1.0f + e) * relativeVel.dot(relativeNormal));

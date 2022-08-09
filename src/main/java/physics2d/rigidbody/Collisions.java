@@ -1,5 +1,6 @@
 package physics2d.rigidbody;
 
+import imguiLayer.Debug;
 import org.joml.Vector2f;
 import physics2d.primitives.Circle;
 import physics2d.primitives.Collider2D;
@@ -18,7 +19,12 @@ public class Collisions {
     public static CollisionManifold findCollisionFeatures(Circle a, Circle b) {
         CollisionManifold result = new CollisionManifold();
         float sumRadii = a.getRadius() + b.getRadius();
+
+        Debug.print(a.name, a.getCenter().toString() + " " + String.valueOf(a.getRadius()));
+        Debug.print(b.name, b.getCenter().toString() + " " + String.valueOf(b.getRadius()));
+
         Vector2f distance = new Vector2f(b.getCenter()).sub(a.getCenter());
+        Debug.print(a.name + "-" + b.name, String.valueOf(distance.lengthSquared()));
         if (distance.lengthSquared() - (sumRadii * sumRadii) > 0) {
             return result;
         }

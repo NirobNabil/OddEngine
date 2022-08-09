@@ -13,7 +13,7 @@ import renderer.DebugDraw;
 
 public class LevelEditorScene extends Scene {
 
-    PhysicsSystem2D physics = new PhysicsSystem2D(1.0f / 60.0f, new Vector2f(0, -1000));
+    PhysicsSystem2D physics = new PhysicsSystem2D(1.0f / 60.0f, new Vector2f(0, -50000));
     Transform obj1, obj2;
     Rigidbody2D rb1, rb2;
 
@@ -41,27 +41,28 @@ public class LevelEditorScene extends Scene {
         int yOffset = 500;
 
         // starts laying out objects from bottom-left
-        int objects_in_row = 3, number_of_rows = 3;
+        int objects_in_row = 1, number_of_rows = 3;
         float object_size = 100f;
-        float padding = 20f;
+        float padding = 40f;
         Vector2f starting_pos = new Vector2f(0, 0);
 
         for (int i = 0; i < number_of_rows; i++) {
             for (int ix = 0; ix < objects_in_row; ix++) {
                 float x = starting_pos.x + (object_size + padding) * ix;
                 float y = starting_pos.y + (object_size + padding) * i;
-                GameObject go = new GameObject("Obj" + x + "" + y, new Transform(new Vector2f(xOffset + x, yOffset + y), new Vector2f(object_size, object_size)), this);
+                GameObject go = new GameObject( i + "" + ix, new Transform(new Vector2f(xOffset + x, yOffset + y), new Vector2f(object_size, object_size)), this);
                 go.addComponent(new CircleRenderer(new Vector4f(0, 1, 0, 1)));
 
                 Rigidbody2D rb = new Rigidbody2D();
-                rb.setMass(300*(objects_in_row-ix+1)*(number_of_rows-i+1));
+                go.addComponent(rb);
+                rb.setMass(3*(ix+1)*(i+1)*400);
                 rb.setRawTransform(go.transform);
                 Circle c = new Circle();
-                c.setRadius(1.0f);
+                c.setRadius(object_size/2.0f);
                 c.setRigidbody(rb);
-                physics.addRigidbody(rb, true);
+                rb.setCollider(c);
+                physics.addRigidbody(rb, i == 2 ? true : false);
 
-                go.addComponent(rb);
 
                 //                GameObject go2 = new GameObject("Obj" + x + object_size*5 + "" + y, new Transform(new Vector2f(x+object_size*5, y), new Vector2f(object_size, object_size)), this);
 //                go2.addComponent(new TriangleRenderer(new Vector4f(1, 0, 0, 1)));
