@@ -4,6 +4,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import util.Time;
+import windowResize.WindowResizeHandler;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -11,7 +12,11 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-    public static int width, height;
+
+    private int targetWidth = 1920;
+    private int targetHeight = 1080;
+    private float targetAspectRatio = (float) targetWidth / (float) targetHeight;
+    public static int width = 1366, height = 768;
     private String title;
     private long glfwWindow;
     private ImGuiLayer imGuiLayer;
@@ -75,6 +80,8 @@ public class Window {
         // Terminate GLFW and the free the error callback
         glfwTerminate();
         glfwSetErrorCallback(null).free();
+        //this.imGuiLayer.destroyImGui();
+
     }
 
     public void init() {
@@ -104,8 +111,8 @@ public class Window {
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
-            Window.setWidth(newWidth);
-            Window.setHeight(newHeight);
+            Window.get().setWidth(newWidth);
+            Window.get().setHeight(newHeight);
         });
 
         // Make the OpenGL context current
@@ -126,6 +133,9 @@ public class Window {
         //glEnable(GL_MULTISAMPLE);
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
         this.imGuiLayer.initImGui();
+
+        // Set resize callback after we make the current context.
+        glfwSetWindowSizeCallback(glfwWindow, WindowResizeHandler::resizeCallback);
 
         Window.changeScene(0);
     }
@@ -156,11 +166,15 @@ public class Window {
         }
     }
 
-    public static void setWidth(int newWidth) {
+    public void setWidth(int newWidth) {
         get().width = newWidth;
     }
 
-    public static void setHeight(int newHeight) {
+    public void setHeight(int newHeight) {
         get().height = newHeight;
+    }
+
+    public float getTargetAspectRatio() {
+        return this.targetAspectRatio;
     }
 }

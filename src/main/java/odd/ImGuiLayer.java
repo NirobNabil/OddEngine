@@ -206,7 +206,7 @@ public class ImGuiLayer {
     }
 
     // If you want to clean a room after yourself - do it by yourself
-    private void destroyImGui() {
+    public void destroyImGui() {
         imGuiGl3.dispose();
         ImGui.destroyContext();
     }
