@@ -7,6 +7,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import physics2d.PhysicsSystem2D;
+import physics2d.primitives.Circle;
 import physics2d.rigidbody.Rigidbody2D;
 import renderer.DebugDraw;
 
@@ -24,25 +25,25 @@ public class LevelEditorScene extends Scene {
     public void init() {
         this.camera = new Camera(new Vector2f(0, 0));
 
-        obj1 = new Transform(new Vector2f(100, 500));
-        obj2 = new Transform(new Vector2f(200, 500));
-        rb1 = new Rigidbody2D();
-        rb2 = new Rigidbody2D();
-        rb1.setRawTransform(obj1);
-        rb2.setRawTransform(obj2);
-        rb1.setMass(100.0f);
-        rb2.setMass(200.0f);
-
-        physics.addRigidbody(rb1);
-        physics.addRigidbody(rb2);
+//        obj1 = new Transform(new Vector2f(100, 500));
+//        obj2 = new Transform(new Vector2f(200, 500));
+//        rb1 = new Rigidbody2D();
+//        rb2 = new Rigidbody2D();
+//        rb1.setRawTransform(obj1);
+//        rb2.setRawTransform(obj2);
+//        rb1.setMass(100.0f);
+//        rb2.setMass(200.0f);
+//
+//        physics.addRigidbody(rb1);
+//        physics.addRigidbody(rb2);
 
         int xOffset = 400;
         int yOffset = 500;
 
         // starts laying out objects from bottom-left
-        int objects_in_row = 3, number_of_rows = 1;
+        int objects_in_row = 3, number_of_rows = 3;
         float object_size = 100f;
-        float padding = 5f;
+        float padding = 20f;
         Vector2f starting_pos = new Vector2f(0, 0);
 
         for (int i = 0; i < number_of_rows; i++) {
@@ -53,9 +54,12 @@ public class LevelEditorScene extends Scene {
                 go.addComponent(new CircleRenderer(new Vector4f(0, 1, 0, 1)));
 
                 Rigidbody2D rb = new Rigidbody2D();
-                rb.setMass(100*(ix+1));
+                rb.setMass(300*(objects_in_row-ix+1)*(number_of_rows-i+1));
                 rb.setRawTransform(go.transform);
-                physics.addRigidbody(rb);
+                Circle c = new Circle();
+                c.setRadius(1.0f);
+                c.setRigidbody(rb);
+                physics.addRigidbody(rb, true);
 
                 go.addComponent(rb);
 

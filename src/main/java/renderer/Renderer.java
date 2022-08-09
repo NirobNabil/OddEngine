@@ -21,7 +21,7 @@ public class Renderer {
         ShapeRenderer shape = go.getComponent(ShapeRenderer.class);
         if (shape != null) {
             if( shape instanceof CircleRenderer ) {
-                System.out.println("Added Circle");
+//                System.out.println("Added Circle");
                 addToCircleRendererBatch( shape );
             }else if( shape instanceof TriangleRenderer ) {
                 addToTriangleRendererBatch( shape );
@@ -40,7 +40,6 @@ public class Renderer {
         }
 
         if (!added) {
-            System.out.println("Came");
             RenderBatchPolygon newBatch = new RenderBatchPolygon(MAX_BATCH_SIZE);
             newBatch.start();
             batches.add(newBatch);
@@ -68,7 +67,6 @@ public class Renderer {
 
     public void render() {
         for (RenderBatch batch : batches) {
-            System.out.println(batch.getClass());
             batch.render();
         }
     }

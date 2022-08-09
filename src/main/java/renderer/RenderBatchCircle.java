@@ -57,7 +57,7 @@ public class RenderBatchCircle extends RenderBatch {
     }
 
     public void start() {
-        System.out.println(POS_OFFSET + " " + COLOR_OFFSET + " " + CENTER_POS_OFFSET + " " + RADIUS_OFFSET);
+//        System.out.println(POS_OFFSET + " " + COLOR_OFFSET + " " + CENTER_POS_OFFSET + " " + RADIUS_OFFSET);
 
         // Generate and bind a Vertex Array Object
         vaoID = glGenVertexArrays();

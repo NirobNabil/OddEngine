@@ -73,7 +73,7 @@ public class RenderBatchPolygon extends RenderBatch {
         try {
             this.shapes[index] = spr;
         }catch(Exception e){
-            System.out.println("in addshape");
+//            System.out.println("in addshape");
         }
         this.numShapes++;
 
