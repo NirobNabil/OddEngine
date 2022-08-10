@@ -1,5 +1,6 @@
 package physics2d.rigidbody;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ public class CollisionManifold {
         normal = new Vector2f();
         depth = 0.0f;
         isColliding = false;
+    }
+
+    public String toString() {
+        return normal.toString() + " " + Float.valueOf(depth) + " " + Boolean.valueOf(isColliding);
     }
 
     public CollisionManifold(Vector2f normal, float depth) {

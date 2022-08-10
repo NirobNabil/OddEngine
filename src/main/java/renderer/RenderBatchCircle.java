@@ -135,7 +135,7 @@ public class RenderBatchCircle extends RenderBatch {
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(3);
-
+//
         glBindVertexArray(0);
 
         shader.detach();

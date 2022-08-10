@@ -10,17 +10,20 @@ public class RectangleRenderer extends ShapeRenderer {
 
     public RectangleRenderer(Vector4f color) {
         this.color = color;
-        localVertices = new Vector2f[] {
-                new Vector2f( 0, 0),
-                new Vector2f( 30, 0),
-                new Vector2f( 30, 30),
-                new Vector2f( 0, 30)
-        };
+        localVertices = generateIdentity();
     }
 
     public RectangleRenderer(Vector4f color, Vector2f[] vertices) {
         this.color = color;
         localVertices = vertices;
+    }
+
+    public RectangleRenderer(Vector4f color, Vector2f scale) {
+        this.color = color;
+        this.localVertices = generateIdentity();
+        for( int i=0; i<localVertices.length; i++ ) {
+            localVertices[i].mul(scale);
+        }
     }
 
     @Override
@@ -29,7 +32,7 @@ public class RectangleRenderer extends ShapeRenderer {
 
     @Override
     public void update(float dt) {
-        rotate(1f);
+
     }
 
 
@@ -53,5 +56,14 @@ public class RectangleRenderer extends ShapeRenderer {
 
     public Vector4f getColor() {
         return this.color;
+    }
+
+    private Vector2f[] generateIdentity() {
+        return new Vector2f[] {
+                new Vector2f( -0.5f, -0.5f),
+                new Vector2f( 0.5f, -0.5f),
+                new Vector2f( 0.5f, 0.5f),
+                new Vector2f( -0.5f, 0.5f)
+        };
     }
 }

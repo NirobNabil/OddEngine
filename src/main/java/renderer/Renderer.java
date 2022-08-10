@@ -1,6 +1,7 @@
 package renderer;
 
 import components.CircleRenderer;
+import components.RectangleRenderer;
 import components.ShapeRenderer;
 import components.TriangleRenderer;
 import odd.GameObject;
@@ -23,7 +24,7 @@ public class Renderer {
             if( shape instanceof CircleRenderer ) {
 //                System.out.println("Added Circle");
                 addToCircleRendererBatch( shape );
-            }else if( shape instanceof TriangleRenderer ) {
+            }else if( shape instanceof TriangleRenderer || shape instanceof RectangleRenderer) {
                 addToTriangleRendererBatch( shape );
             }
         }
@@ -67,6 +68,7 @@ public class Renderer {
 
     public void render() {
         for (RenderBatch batch : batches) {
+            batch.start();
             batch.render();
         }
     }

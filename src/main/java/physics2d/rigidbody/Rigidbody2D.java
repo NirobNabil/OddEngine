@@ -102,6 +102,11 @@ public class Rigidbody2D extends Component {
         this.position.set(rawTransform.position);
     }
 
+    public void setLinearVelocity( Vector2f velocity ) {
+        this.linearVelocity = velocity;
+
+    }
+
     public void setCollider(Collider2D collider) {
         this.collider = collider;
     }

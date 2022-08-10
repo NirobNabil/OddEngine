@@ -1,6 +1,7 @@
 package renderer;
 
 import components.ShapeRenderer;
+import imguiLayer.Debug;
 import odd.Window;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -65,6 +66,10 @@ public class RenderBatchPolygon extends RenderBatch {
 
         glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, COLOR_OFFSET);
         glEnableVertexAttribArray(1);
+
+        for( int i=0; i<15; i++ ) {
+            System.out.println(String.valueOf(i) + " - " + String.valueOf(elementIndices[i]));
+        }
     }
 
     public void addShape(ShapeRenderer spr) {
@@ -85,6 +90,8 @@ public class RenderBatchPolygon extends RenderBatch {
     private boolean elementIndicesToUpdate = true;
     public void render() {
 
+//        if( 1==1 ) return;
+
         if ( elementIndicesToUpdate ) {
             int eboID = glGenBuffers();
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
@@ -96,6 +103,10 @@ public class RenderBatchPolygon extends RenderBatch {
         for( int i=0; i<numShapes; i++ ){
             updateVertexProperties(i);
         }
+
+        int eboID = glGenBuffers();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 

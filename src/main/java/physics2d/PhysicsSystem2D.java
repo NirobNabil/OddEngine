@@ -1,9 +1,11 @@
 package physics2d;
 
 import imguiLayer.Debug;
+import odd.GameObject;
 import org.joml.Vector2f;
 import physics2d.forces.ForceRegistry;
 import physics2d.forces.Gravity2D;
+import physics2d.primitives.AABB;
 import physics2d.primitives.Collider2D;
 import physics2d.rigidbody.CollisionManifold;
 import physics2d.rigidbody.Collisions;
@@ -57,6 +59,7 @@ public class PhysicsSystem2D {
                 Collider2D c1 = r1.getCollider();
                 Collider2D c2 = r2.getCollider();
 
+
                 if (c1 != null && c2 != null && !(r1.hasInfiniteMass() && r2.hasInfiniteMass())) {
                     result = Collisions.findCollisionFeatures(c1, c2);
                 }
@@ -93,6 +96,11 @@ public class PhysicsSystem2D {
         // Apply linear projection
     }
 
+    public void throwAt( GameObject go, Vector2f velocity ) {
+        Rigidbody2D rb = go.getComponent(Rigidbody2D.class);
+        rb.setLinearVelocity(velocity);
+    }
+
     private void applyImpulse(Rigidbody2D a, Rigidbody2D b, CollisionManifold m) {
         // Linear velocity
         float invMass1 = a.getInverseMass();
@@ -105,10 +113,12 @@ public class PhysicsSystem2D {
         // Relative velocity
         Vector2f relativeVel = new Vector2f(b.getVelocity()).sub(a.getVelocity());
         Vector2f relativeNormal = new Vector2f(m.getNormal()).normalize();
+        Debug.print("w", a.gameObject.name + "-" + b.gameObject.name + " = " + relativeVel.dot(relativeNormal));
         // Moving away from each other? Do nothing
         if (relativeVel.dot(relativeNormal) > 0.0f) {
             return;
         }
+
 
 
         float e = Math.min(a.getCor(), b.getCor());
