@@ -21,6 +21,8 @@ repositories {
 
 dependencies {
     testImplementation('junit:junit:4.13.2')
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    implementation platform("org.lwjgl:lwjgl-bom:3.3.1")
 
     // ImGUI stuff
     implementation "io.imgui.java:binding:$imguiVersion"
@@ -28,14 +30,11 @@ dependencies {
 
     // Include all available natives, but it's likely that you want something specific
     runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
-    runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
+    //runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
     //runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
     //runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
 
-    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
-
-    implementation platform("org.lwjgl:lwjgl-bom:3.3.1")
-
+    // LWJGL stuff
     implementation "org.lwjgl:lwjgl"
     implementation "org.lwjgl:lwjgl-assimp"
     implementation "org.lwjgl:lwjgl-glfw"

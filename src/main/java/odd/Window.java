@@ -17,7 +17,7 @@ public class Window {
     private int targetWidth = 1920;
     private int targetHeight = 1080;
     private float targetAspectRatio = (float) targetWidth / (float) targetHeight;
-    public static int width = 1366, height = 768;
+    public static int width, height;
     private String title;
     private long glfwWindow;
     private ImGuiLayer imGuiLayer;
