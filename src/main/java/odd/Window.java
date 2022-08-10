@@ -2,6 +2,7 @@ package odd;
 
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import util.Time;
 import windowResize.WindowResizeHandler;
@@ -136,6 +137,11 @@ public class Window {
 
         // Set resize callback after we make the current context.
         glfwSetWindowSizeCallback(glfwWindow, WindowResizeHandler::resizeCallback);
+
+        GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        this.targetWidth = vidMode.width();
+        this.targetHeight = vidMode.height();
+        this.targetAspectRatio = (float) this.targetWidth / (float) this.targetHeight;
 
         Window.changeScene(0);
     }

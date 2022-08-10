@@ -20,9 +20,9 @@ public class WindowResizeHandler {
         }
 
         // Center rectangle
-        int tpX = (int) (((float)screenWidth / 2f) - ((float)aspectWidth / 2f));
-        int tpY = (int) (((float)screenHeight / 2f) - ((float)aspectHeight / 2f));
+        int centerX = (int) (((float)screenWidth / 2f) - ((float)aspectWidth / 2f));
+        int centerY = (int) (((float)screenHeight / 2f) - ((float)aspectHeight / 2f));
 
-        glViewport(tpX, tpY, aspectWidth, aspectHeight);
+        glViewport(centerX, centerY, aspectWidth, aspectHeight);
     }
 }
