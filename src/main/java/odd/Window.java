@@ -1,11 +1,14 @@
 package odd;
 
+import org.lwjgl.Version;
 import imguiLayer.Debug;
 import imguiLayer.ImGuiLayer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import util.Time;
+import windowResize.WindowResizeHandler;
 
 import java.nio.IntBuffer;
 
@@ -16,6 +19,10 @@ import static org.lwjgl.opengl.GL13C.GL_MULTISAMPLE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
+    private int targetWidth = 1920;
+    private int targetHeight = 1080;
+    private float targetAspectRatio = (float) targetWidth / (float) targetHeight;
+
     public static int width, height;
     private String title;
     private long glfwWindow;
@@ -113,8 +120,8 @@ public class Window {
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
-            Window.setWidth(newWidth);
-            Window.setHeight(newHeight);
+            Window.get().setWidth(newWidth);
+            Window.get().setHeight(newHeight);
         });
 
         // Make the OpenGL context current
@@ -139,6 +146,13 @@ public class Window {
 
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
         this.imGuiLayer.initImGui();
+
+        // Set resize callback after we make the current context.
+        glfwSetWindowSizeCallback(glfwWindow, WindowResizeHandler::resizeCallback);
+        GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        this.targetWidth = vidMode.width();
+        this.targetHeight = vidMode.height();
+        this.targetAspectRatio = (float) this.targetWidth / (float) this.targetHeight;
 
         Window.changeScene(0);
     }
@@ -184,4 +198,9 @@ public class Window {
     public static void setHeight(int newHeight) {
         get().height = newHeight;
     }
+
+    public float getTargetAspectRatio() {
+        return this.targetAspectRatio;
+    }
+
 }

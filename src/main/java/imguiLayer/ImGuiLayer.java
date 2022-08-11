@@ -178,18 +178,23 @@ public class ImGuiLayer {
         imGuiGl3.init("#version 330 core");
     }
 
+
     public void update(float dt) {
         startFrame(dt);
 
         // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
 
+
+        // sir re dekhabo
         for( imguiWindow window : imguiWindows ) {
             window.update();
         }
 
+
+//        ImGui.newFrame();
+//        ImGui.showDemoWindow();
         ImGui.render();
 
-//        ImGui.showDemoWindow();
 
 
         endFrame();
