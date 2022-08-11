@@ -5,7 +5,10 @@ import components.ShapeRenderer;
 import odd.Window;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import org.lwjgl.BufferUtils;
 
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL15.*;
@@ -38,7 +41,7 @@ public class RenderBatchCircle extends RenderBatch {
     private float[] vertices;
     private int[] elementIndices;
 
-    private int vaoID, vboID, maxElementIndices;
+    private int vaoID, vboID, eboID, maxElementIndices;
     private Shader shader;
 
     public RenderBatchCircle(int maxCircleCount) {
@@ -67,6 +70,11 @@ public class RenderBatchCircle extends RenderBatch {
         vboID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferData(GL_ARRAY_BUFFER, vertices.length * Float.BYTES, GL_DYNAMIC_DRAW);
+
+        eboID = glGenBuffers();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+
 
         // Enable the buffer attribute pointers
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POS_OFFSET);
@@ -101,20 +109,18 @@ public class RenderBatchCircle extends RenderBatch {
     private boolean elementIndicesToUpdate = true;
     public void render() {
 
-        if ( elementIndicesToUpdate ) {
-            int eboID = glGenBuffers();
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
-            elementIndicesToUpdate = false;
-        }
+        glBindVertexArray(vaoID);
 
         // For now, we will rebuffer all data every frame
         for( int i=0; i<numCircles; i++ ){
             updateVertexProperties(i);
         }
-        int eboID = glGenBuffers();
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+        if( elementIndicesToUpdate ) {
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+            elementIndicesToUpdate = false;
+        }
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
@@ -123,7 +129,6 @@ public class RenderBatchCircle extends RenderBatch {
         shader.uploadMat4f("uProjection", Window.getScene().camera().getProjectionMatrix());
         shader.uploadMat4f("uView", Window.getScene().camera().getViewMatrix());
 
-        glBindVertexArray(vaoID);
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
@@ -192,18 +197,18 @@ public class RenderBatchCircle extends RenderBatch {
 
             vertices[this.verticesArrayIndex] = circle.gameObject.transform.position.x + vertex.x;
             vertices[this.verticesArrayIndex + 1] = circle.gameObject.transform.position.y + vertex.y;
-            vertices[this.verticesArrayIndex + 2] = 0;
+//            vertices[this.verticesArrayIndex + 2] = 0;
             // no need to set 3rd index because it is zero by default
 
             // Load color
-            vertices[this.verticesArrayIndex + 3] = color.x;
-            vertices[this.verticesArrayIndex + 4] = color.y;
-            vertices[this.verticesArrayIndex + 5] = color.z;
-            vertices[this.verticesArrayIndex + 6] = color.w;
+//            vertices[this.verticesArrayIndex + 3] = color.x;
+//            vertices[this.verticesArrayIndex + 4] = color.y;
+//            vertices[this.verticesArrayIndex + 5] = color.z;
+//            vertices[this.verticesArrayIndex + 6] = color.w;
 
             vertices[this.verticesArrayIndex + 7] = circle.gameObject.transform.position.x + circle.getCenter().x;
             vertices[this.verticesArrayIndex + 8] = circle.gameObject.transform.position.y + circle.getCenter().y;
-            vertices[this.verticesArrayIndex + 9] = 0;
+//            vertices[this.verticesArrayIndex + 9] = 0;
 
             vertices[this.verticesArrayIndex + 10] = circle.getRadius();
 

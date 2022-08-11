@@ -5,6 +5,11 @@ import imguiLayer.Debug;
 import odd.Window;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import org.lwjgl.BufferUtils;
+
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
@@ -32,7 +37,7 @@ public class RenderBatchPolygon extends RenderBatch {
     private float[] vertices;
     private int[] elementIndices;
 
-    private int vaoID, vboID, maxElementIndices;
+    private int vaoID, vboID, eboID, maxElementIndices;
     private Shader shader;
 
     public RenderBatchPolygon(int maxTriangleCount) {
@@ -60,6 +65,10 @@ public class RenderBatchPolygon extends RenderBatch {
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferData(GL_ARRAY_BUFFER, vertices.length * Float.BYTES, GL_DYNAMIC_DRAW);
 
+        eboID = glGenBuffers();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+
         // Enable the buffer attribute pointers
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POS_OFFSET);
         glEnableVertexAttribArray(0);
@@ -83,39 +92,43 @@ public class RenderBatchPolygon extends RenderBatch {
         this.numShapes++;
 
         // Add properties to local vertices array
+        loadElementIndices(index);  // it is important that loadlements is called before loadvertex because elementIndiecs this.verticesArrayIndex. if
+                                    // load elements is called load vertex, the first rectangle will not be processed
         loadVertexProperties(index);
-        loadElementIndices(index);
     }
 
     private boolean elementIndicesToUpdate = true;
     public void render() {
 
-//        if( 1==1 ) return;
-
-        if ( elementIndicesToUpdate ) {
-            int eboID = glGenBuffers();
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
-            elementIndicesToUpdate = false;
-        }
+        glBindVertexArray(vaoID);
 
         // For now, we will rebuffer all data every frame
         for( int i=0; i<numShapes; i++ ){
             updateVertexProperties(i);
         }
 
-        int eboID = glGenBuffers();
+//        int eboID = glGenBuffers();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+        if( elementIndicesToUpdate ) {
+            glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, elementIndices);
+            elementIndicesToUpdate = false;
+        }
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+//        int sz = 80;
+//        IntBuffer t_vertices = BufferUtils.createIntBuffer(sz);
+//        glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, t_vertices);
+//        System.out.println("Polygon: ");
+//        for( int i=0; i<sz; i++ ) {
+//            System.out.print( (int)t_vertices.get(i) + ", " );
+//        }
+//        System.out.println(" |");
 
         // Use shader
         shader.use();
         shader.uploadMat4f("uProjection", Window.getScene().camera().getProjectionMatrix());
         shader.uploadMat4f("uView", Window.getScene().camera().getViewMatrix());
 
-        glBindVertexArray(vaoID);
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
 
@@ -124,6 +137,7 @@ public class RenderBatchPolygon extends RenderBatch {
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
+
 
         shader.detach();
     }
@@ -181,7 +195,7 @@ public class RenderBatchPolygon extends RenderBatch {
     private void loadElementIndices(int index) {
 
         int[] shapeElementIndices = shapes[index].getElementIndices();
-        this.elementIndicesOffset[index] = elementIndicesArrayIndex;
+        this.elementIndicesOffset[index] = this.verticesArrayIndex / VERTEX_SIZE;
 
         for( int elementIndex : shapeElementIndices ) {
             elementIndices[elementIndicesArrayIndex++] = this.elementIndicesOffset[index] + elementIndex;

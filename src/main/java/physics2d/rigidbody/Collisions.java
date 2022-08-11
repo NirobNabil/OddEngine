@@ -25,11 +25,11 @@ public class Collisions {
         CollisionManifold result = new CollisionManifold();
         float sumRadii = a.getRadius() + b.getRadius();
 
-        Debug.print(a.name, a.getCenter().toString() + " " + String.valueOf(a.getRadius()));
-        Debug.print(b.name, b.getCenter().toString() + " " + String.valueOf(b.getRadius()));
+//        Debug.print(a.name, a.getCenter().toString() + " " + String.valueOf(a.getRadius()));
+//        Debug.print(b.name, b.getCenter().toString() + " " + String.valueOf(b.getRadius()));
 
         Vector2f distance = new Vector2f(b.getCenter()).sub(a.getCenter());
-        Debug.print(a.name + "-" + b.name, String.valueOf(distance.lengthSquared()));
+//        Debug.print(a.name + "-" + b.name, String.valueOf(distance.lengthSquared()));
         if (distance.lengthSquared() - (sumRadii * sumRadii) > 0) {
             return result;
         }
@@ -51,7 +51,7 @@ public class Collisions {
     public static CollisionManifold findCollisionFeatures( Circle c, AABB r ) {
         CollisionManifold result = new CollisionManifold();
         int circleSide = 0; // 1 - top, 2 - right, 3 - bottom, 4 - left
-        Debug.print("aabb coll", "came");
+//        Debug.print("aabb coll", "came");
         if( c.getCenter().x < r.getCenter().x + r.getHalfSize().x && c.getCenter().x > r.getCenter().x - r.getHalfSize().x ) {
             Vector2f distance = new Vector2f(c.getCenter()).sub( new Vector2f(c.getCenter().x, r.getCenter().y) ).mul(-1);
             float sumRadii = c.getRadius() + r.getHalfSize().y;
@@ -66,7 +66,7 @@ public class Collisions {
                     new Vector2f(normal).mul(distanceToPoint));
             result = new CollisionManifold(normal, depth);
             result.addContactPoint(contactPoint);
-        } else if( c.getCenter().x < r.getCenter().x + r.getHalfSize().x && c.getCenter().x > r.getCenter().x - r.getHalfSize().x ) {
+        } else if( c.getCenter().y < r.getCenter().y + r.getHalfSize().y && c.getCenter().y > r.getCenter().y - r.getHalfSize().y ) {
             Vector2f distance = new Vector2f(c.getCenter()).sub( new Vector2f(r.getCenter().x, c.getCenter().y) ).mul(-1);
             float sumRadii = c.getRadius() + r.getHalfSize().x;
             if( distance.lengthSquared() - ( sumRadii * sumRadii ) > 0 ) {

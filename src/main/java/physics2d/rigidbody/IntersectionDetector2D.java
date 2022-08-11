@@ -1,5 +1,6 @@
 package physics2d.rigidbody;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.joml.Vector2f;
 import physics2d.primitives.*;
 import physics2d.primitives.Line2D;
@@ -262,6 +263,16 @@ public class IntersectionDetector2D {
         Vector2f min = box.getMin();
         Vector2f max = box.getMax();
 
+        Vector2f center = circle.getCenter();
+
+        System.out.println( center.toString() );
+        System.out.println( min.toString() );
+        System.out.println( max.toString() );
+        System.out.println("");
+        if( center.x <= max.x && center.x >= min.x && center.y <=max.y && center.y >= min.y ) {
+            return true;
+        }
+
         Vector2f closestPointToCircle = new Vector2f(circle.getCenter());
         if (closestPointToCircle.x < min.x) {
             closestPointToCircle.x = min.x;
@@ -304,5 +315,23 @@ public class IntersectionDetector2D {
 
         Vector2f circleToBox = new Vector2f(localCirclePos).sub(closestPointToCircle);
         return circleToBox.lengthSquared() <= circle.getRadius() * circle.getRadius();
+    }
+
+    public static boolean AABBAndAABB(AABB box1, AABB box2) {
+
+        Boolean collided = false;
+
+        collided |= IntersectionDetector2D.pointInAABB(box2.getMin(), box1);
+        collided |= IntersectionDetector2D.pointInAABB(box2.getMax(), box1);
+        collided |= IntersectionDetector2D.pointInAABB(box2.getMax().sub(new Vector2f(0, box2.halfSize.y)), box1);
+        collided |= IntersectionDetector2D.pointInAABB(box2.getMax().sub(new Vector2f(box2.halfSize.x, 0)), box1);
+
+        collided |= IntersectionDetector2D.pointInAABB(box1.getMin(), box2);
+        collided |= IntersectionDetector2D.pointInAABB(box1.getMax(), box2);
+        collided |= IntersectionDetector2D.pointInAABB(box1.getMax().sub(new Vector2f(0, box1.halfSize.y)), box2);
+        collided |= IntersectionDetector2D.pointInAABB(box1.getMax().sub(new Vector2f(box1.halfSize.x, 0)), box2);
+
+        return collided;
+
     }
 }

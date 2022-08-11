@@ -11,7 +11,6 @@ import java.nio.IntBuffer;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13C.GL_MULTISAMPLE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
@@ -39,7 +38,7 @@ public class Window {
     public static void changeScene(int newScene) {
         switch (newScene) {
             case 0:
-                currentScene = new LevelEditorScene();
+                currentScene = new ParticleCollisionScene();
                 currentScene.init();
                 currentScene.start();
                 break;
@@ -127,10 +126,10 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
 
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//        glEnable(GL_BLEND);
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glEnable(GL_MULTISAMPLE);
+//        glEnable(GL_MULTISAMPLE);
 
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
         this.imGuiLayer.initImGui();

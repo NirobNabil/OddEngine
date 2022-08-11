@@ -1,16 +1,21 @@
 package physics2d;
 
+import components.RectangleRenderer;
 import imguiLayer.Debug;
 import odd.GameObject;
+import odd.Transform;
 import org.joml.Vector2f;
 import physics2d.forces.ForceRegistry;
 import physics2d.forces.Gravity2D;
 import physics2d.primitives.AABB;
+import physics2d.primitives.Circle;
 import physics2d.primitives.Collider2D;
 import physics2d.rigidbody.CollisionManifold;
 import physics2d.rigidbody.Collisions;
+import physics2d.rigidbody.IntersectionDetector2D;
 import physics2d.rigidbody.Rigidbody2D;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +28,14 @@ public class PhysicsSystem2D {
     private List<Rigidbody2D> bodies2;
     private List<CollisionManifold> collisions;
 
+    private int cols = 2, rows = 2;
+    private Vector2f windowSize = new Vector2f( 2100, 1900 );
+    private Vector2f cellSize = new Vector2f( windowSize ).mul(new Vector2f( 1.0f/(float)cols, 1.0f/(float)rows ));
+    private AABB[] gridBoxes = new AABB[cols*rows];
+    private List<Integer>[] gridIndexes = new List[rows*cols];
+
     private float fixedUpdate;
-    private int impulseIterations = 6;
+    private int impulseIterations = 1;
 
     public PhysicsSystem2D(float fixedUpdateDt, Vector2f gravity) {
         this.forceRegistry = new ForceRegistry();
@@ -34,6 +45,17 @@ public class PhysicsSystem2D {
         this.bodies1 = new ArrayList<>();
         this.bodies2 = new ArrayList<>();
         this.collisions = new ArrayList<>();
+
+        for( int i = 0; i < rows; i++ ) {
+            for( int ix = 0; ix < cols; ix++ ) {
+                Rigidbody2D r = new Rigidbody2D();
+                r.setRawTransform( new Transform( new Vector2f( i, ix ).add( new Vector2f(cellSize).mul(0.5f) ) ) );
+                AABB a = new AABB( cellSize );
+                a.setRigidbody( r );
+                gridBoxes[i*cols + ix] = a;
+                gridIndexes[i*cols + ix] = new ArrayList<Integer>();
+            }
+        }
 
         this.fixedUpdate = fixedUpdateDt;
     }
@@ -47,8 +69,41 @@ public class PhysicsSystem2D {
         bodies2.clear();
         collisions.clear();
 
-        // Find any collisions
         int size = rigidbodies.size();
+
+        for( int i = 0; i<rows*cols; i++ ) {
+            gridIndexes[i] = new ArrayList<Integer>();
+        }
+
+        Rigidbody2D r;
+        Collider2D c;
+        for( int i=0; i<size; i++ ) {
+            r = rigidbodies.get(i);
+            c = r.getCollider();
+            for( int ix = 0; ix < rows*cols; ix++ ) {
+//                System.out.println( gridBoxes[ix].getMin().toString() );
+                if( c instanceof AABB ) {
+                    if( IntersectionDetector2D.AABBAndAABB( (AABB) c, gridBoxes[ix] ) ) {
+                        gridIndexes[ix].add(i);
+                    }
+                }  else if( c instanceof Circle ) {
+                    if( IntersectionDetector2D.circleAndAABB( (Circle) c, gridBoxes[ix] ) ) {
+                        gridIndexes[ix].add(i);
+                    }
+                }
+            }
+        }
+
+
+        for( int i = 0; i < rows*cols; i++ ) {
+            if( gridIndexes[i] == null ) continue;
+            for( int ix : gridIndexes[i] ) {
+                System.out.print( ix + ", ");
+            }
+            System.out.println("|\n");
+        }
+
+        // Find any collisions
         for (int i=0; i < size; i++) {
             for (int j=i; j < size; j++) {
                 if (i == j) continue;
@@ -58,6 +113,15 @@ public class PhysicsSystem2D {
                 Rigidbody2D r2 = rigidbodies.get(j);
                 Collider2D c1 = r1.getCollider();
                 Collider2D c2 = r2.getCollider();
+
+                if( c1 instanceof Circle && c2 instanceof Circle ) {
+                    if( !IntersectionDetector2D.circleAndCircle((Circle) c1,(Circle) c2) ) continue;
+                } else if( c1 instanceof Circle ) {
+                    if( !IntersectionDetector2D.circleAndAABB((Circle) c1, (AABB) c2) ) continue;
+                } else if( c2 instanceof Circle ) {
+                    if( !IntersectionDetector2D.circleAndAABB((Circle) c2, (AABB) c1) ) continue;
+                }
+
 
 
                 if (c1 != null && c2 != null && !(r1.hasInfiniteMass() && r2.hasInfiniteMass())) {
@@ -92,8 +156,8 @@ public class PhysicsSystem2D {
         for (int i=0; i < rigidbodies.size(); i++) {
             rigidbodies.get(i).physicsUpdate(fixedUpdate);
         }
-
-        // Apply linear projection
+//
+//        // Apply linear projection
     }
 
     public void throwAt( GameObject go, Vector2f velocity ) {
@@ -113,7 +177,7 @@ public class PhysicsSystem2D {
         // Relative velocity
         Vector2f relativeVel = new Vector2f(b.getVelocity()).sub(a.getVelocity());
         Vector2f relativeNormal = new Vector2f(m.getNormal()).normalize();
-        Debug.print("w", a.gameObject.name + "-" + b.gameObject.name + " = " + relativeVel.dot(relativeNormal));
+//        Debug.print("w", a.gameObject.name + "-" + b.gameObject.name + " = " + relativeVel.dot(relativeNormal));
         // Moving away from each other? Do nothing
         if (relativeVel.dot(relativeNormal) > 0.0f) {
             return;

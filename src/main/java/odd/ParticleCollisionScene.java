@@ -2,24 +2,20 @@ package odd;
 
 import components.CircleRenderer;
 import components.RectangleRenderer;
-import components.TriangleRenderer;
-import imguiLayer.Debug;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
 import physics2d.PhysicsSystem2D;
 import physics2d.primitives.AABB;
 import physics2d.primitives.Circle;
 import physics2d.rigidbody.Rigidbody2D;
-import renderer.DebugDraw;
 
-public class LevelEditorScene extends Scene {
+public class ParticleCollisionScene extends Scene {
 
     PhysicsSystem2D physics = new PhysicsSystem2D(1.0f / 60.0f, new Vector2f(0, -50000));
     Transform obj1, obj2;
     Rigidbody2D rb1, rb2;
 
-    public LevelEditorScene() {
+    public ParticleCollisionScene() {
 
     }
 
@@ -27,27 +23,27 @@ public class LevelEditorScene extends Scene {
     public void init() {
         this.camera = new Camera(new Vector2f(0, 0));
 
-        int xOffset = 500;
-        int yOffset = 500;
+        int xOffset = 10;
+        int yOffset = 10;
 
         // starts laying out objects from bottom-left
-        int objects_in_row = 2, number_of_rows = 2;
-        float object_size = 10f;
-        float padding = 40f;
+        int objects_in_row = 1, number_of_rows = 1;
+        float object_size = 7f;
+        float padding = 100f;
         Vector2f starting_pos = new Vector2f(0, 0);
 
         for (int i = 0; i < number_of_rows; i++) {
             for (int ix = 0; ix < objects_in_row; ix++) {
                 float x = starting_pos.x + (object_size + padding) * ix + xOffset;
                 float y = starting_pos.y + (object_size + padding) * i + yOffset;
-                addCircleGameObject(i+"."+ix, x,y,object_size/2.0f, (i+1)*(ix+1)*800, true);
+                addCircleGameObject(i+"."+ix, x,y,object_size/2.0f, (i+1)*(ix+1)*800, false);
             }
         }
 
-//        addAABBGameObject("groundleft", 900, 0, 10, 2000, Float.MAX_VALUE, true );
-        addAABBGameObject("groundbottom", 500, 10, 1000, 10, Float.MAX_VALUE, true );
-//        addAABBGameObject("groundright", 1800, 0, 10, 1080, Float.MAX_VALUE, true );
-//        addAABBGameObject("groundtop", 0, 1800, 1920, 10, Float.MAX_VALUE, true );
+        addAABBGameObject("groundleft", 0, 500, 10, 2000, Float.MAX_VALUE, true );
+        addAABBGameObject("groundbottom", 900, 0, 2000, 10, Float.MAX_VALUE, true );
+        addAABBGameObject("groundtop", 900, 1015, 1920, 10, Float.MAX_VALUE, true );
+        addAABBGameObject("groundright", 1865, 500, 10, 2000, Float.MAX_VALUE, true );
 
     }
 
@@ -71,7 +67,9 @@ public class LevelEditorScene extends Scene {
         rb.setCollider(c);
 
         physics.addRigidbody(rb, isGravity);
-        physics.throwAt(go, new Vector2f((float)Math.random()*100f, 10f));
+        float rand = (float)Math.random();
+        float rand2 = (float)Math.random();
+        physics.throwAt(go, new Vector2f(((int)rand%2 == 1 ? -1 : 1 ) * rand *100f, (rand2%2 == 1 ? -1 : 1 ) * rand2 *100f));
 
         this.addGameObjectToScene(go);
     }
@@ -88,7 +86,7 @@ public class LevelEditorScene extends Scene {
         rb.setMass(mass);
         rb.setRawTransform(go.transform);
 
-        go.addComponent(new TriangleRenderer(new Vector4f(0, 1, 0, 1)));
+        go.addComponent(new RectangleRenderer(new Vector4f(0, 1, 0, 1), new Vector2f(scaleX, scaleY)));
         Vector2f halfSize = new Vector2f(go.transform.scale).mul(0.5f);
         AABB r = new AABB(new Vector2f(go.transform.position).sub(halfSize), new Vector2f(go.transform.position).add(halfSize));
         r.setRigidbody(rb);

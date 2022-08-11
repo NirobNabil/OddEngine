@@ -9,7 +9,7 @@ public class Debug extends imguiWindow {
 
     public static void print(String key, String b) {
         messages.put(key, b);
-        System.out.println(messages.keySet().size());
+//        System.out.println(messages.keySet().size());
     }
 
 
@@ -18,7 +18,6 @@ public class Debug extends imguiWindow {
     }
 
     public void update() {
-        System.out.println("updated");
         ImGui.newFrame();
         ImGui.begin("Debug Text");
         ImGui.setWindowSize("Debug Text", 400, 800 );

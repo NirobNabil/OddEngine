@@ -59,7 +59,7 @@ public class Renderer {
         }
 
         if (!added) {
-            RenderBatchCircle newBatch = new RenderBatchCircle(100);
+            RenderBatchCircle newBatch = new RenderBatchCircle(10000);
             newBatch.start();
             batches.add(newBatch);
             newBatch.addShape(circle);
@@ -68,7 +68,7 @@ public class Renderer {
 
     public void render() {
         for (RenderBatch batch : batches) {
-            batch.start();
+//            batch.start();
             batch.render();
         }
     }

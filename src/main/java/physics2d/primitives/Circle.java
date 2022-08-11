@@ -23,6 +23,6 @@ public class Circle extends Collider2D {
 
     public void setRigidbody(Rigidbody2D rb) {
         this.rigidbody = rb;
-        this.name = rb.gameObject.name;
+//        this.name = rb.gameObject.name;
     }
 }

@@ -10,8 +10,8 @@ public class AABB extends Collider2D {
     public Vector2f halfSize = new Vector2f();
     public Rigidbody2D rigidbody = null;
 
-    public AABB() {
-        this.halfSize = new Vector2f(this.size).mul(0.5f);
+    public AABB( Vector2f halfSize ) {
+        this.halfSize = halfSize;
     }
 
     public AABB( Vector2f min, Vector2f max ){
@@ -37,7 +37,7 @@ public class AABB extends Collider2D {
 
     public void setRigidbody(Rigidbody2D rb) {
         this.rigidbody = rb;
-        this.name = rb.gameObject.name;
+//        this.name = rb.gameObject.name;
     }
 
 }
