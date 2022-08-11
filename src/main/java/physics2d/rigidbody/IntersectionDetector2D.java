@@ -265,10 +265,10 @@ public class IntersectionDetector2D {
 
         Vector2f center = circle.getCenter();
 
-        System.out.println( center.toString() );
-        System.out.println( min.toString() );
-        System.out.println( max.toString() );
-        System.out.println("");
+//        System.out.println( center.toString() );
+//        System.out.println( min.toString() );
+//        System.out.println( max.toString() );
+//        System.out.println("");
         if( center.x <= max.x && center.x >= min.x && center.y <=max.y && center.y >= min.y ) {
             return true;
         }
@@ -330,6 +330,13 @@ public class IntersectionDetector2D {
         collided |= IntersectionDetector2D.pointInAABB(box1.getMax(), box2);
         collided |= IntersectionDetector2D.pointInAABB(box1.getMax().sub(new Vector2f(0, box1.halfSize.y)), box2);
         collided |= IntersectionDetector2D.pointInAABB(box1.getMax().sub(new Vector2f(box1.halfSize.x, 0)), box2);
+
+        Vector2f b1max = box1.getMax();
+        Vector2f b1min = box1.getMin();
+        Vector2f b2max = box2.getMax();
+        Vector2f b2min = box2.getMin();
+
+        collided |= b2max.x > b1max.x && b2min.x < b1max.x && b2max.y > b1max.y && b2min.y < b1max.y;
 
         return collided;
 

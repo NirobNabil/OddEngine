@@ -27,9 +27,9 @@ public class ParticleCollisionScene extends Scene {
         int yOffset = 10;
 
         // starts laying out objects from bottom-left
-        int objects_in_row = 1, number_of_rows = 1;
+        int objects_in_row = 50, number_of_rows = 50;
         float object_size = 7f;
-        float padding = 100f;
+        float padding = 10f;
         Vector2f starting_pos = new Vector2f(0, 0);
 
         for (int i = 0; i < number_of_rows; i++) {
@@ -40,9 +40,9 @@ public class ParticleCollisionScene extends Scene {
             }
         }
 
-        addAABBGameObject("groundleft", 0, 500, 10, 2000, Float.MAX_VALUE, true );
-        addAABBGameObject("groundbottom", 900, 0, 2000, 10, Float.MAX_VALUE, true );
-        addAABBGameObject("groundtop", 900, 1015, 1920, 10, Float.MAX_VALUE, true );
+        addAABBGameObject("groundleft", 0, 500, 20, 2000, Float.MAX_VALUE, true );
+        addAABBGameObject("groundbottom", 900, 0, 1920, 20, Float.MAX_VALUE, true );
+        addAABBGameObject("groundtop", 900, 1015, 1920, 20, Float.MAX_VALUE, true );
         addAABBGameObject("groundright", 1865, 500, 10, 2000, Float.MAX_VALUE, true );
 
     }

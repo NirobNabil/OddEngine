@@ -29,13 +29,13 @@ public class PhysicsSystem2D {
     private List<CollisionManifold> collisions;
 
     private int cols = 2, rows = 2;
-    private Vector2f windowSize = new Vector2f( 2100, 1900 );
+    private Vector2f windowSize = new Vector2f( 2100, 1100 );
     private Vector2f cellSize = new Vector2f( windowSize ).mul(new Vector2f( 1.0f/(float)cols, 1.0f/(float)rows ));
     private AABB[] gridBoxes = new AABB[cols*rows];
     private List<Integer>[] gridIndexes = new List[rows*cols];
 
     private float fixedUpdate;
-    private int impulseIterations = 1;
+    private int impulseIterations = 4;
 
     public PhysicsSystem2D(float fixedUpdateDt, Vector2f gravity) {
         this.forceRegistry = new ForceRegistry();
@@ -49,9 +49,12 @@ public class PhysicsSystem2D {
         for( int i = 0; i < rows; i++ ) {
             for( int ix = 0; ix < cols; ix++ ) {
                 Rigidbody2D r = new Rigidbody2D();
-                r.setRawTransform( new Transform( new Vector2f( i, ix ).add( new Vector2f(cellSize).mul(0.5f) ) ) );
-                AABB a = new AABB( cellSize );
+                r.setRawTransform( new Transform( new Vector2f( i, ix ).mul( new Vector2f(cellSize) ).add(new Vector2f(cellSize).mul(0.5f) ) ) );
+                AABB a = new AABB( new Vector2f(cellSize).mul( 0.5f ) );
+                r.name = new Vector2f( i, ix ).mul( new Vector2f(cellSize) ).add(new Vector2f(cellSize).mul(0.5f) ).toString();
                 a.setRigidbody( r );
+
+                System.out.println( i +","+ix+ " " + windowSize.mul(0.5f) + " | " + a.getMin().toString() + " - " + a.getMax().toString() );
                 gridBoxes[i*cols + ix] = a;
                 gridIndexes[i*cols + ix] = new ArrayList<Integer>();
             }
@@ -97,44 +100,55 @@ public class PhysicsSystem2D {
 
         for( int i = 0; i < rows*cols; i++ ) {
             if( gridIndexes[i] == null ) continue;
+            String out = "";
             for( int ix : gridIndexes[i] ) {
-                System.out.print( ix + ", ");
+                if( rigidbodies.get(ix).gameObject != null ) out += rigidbodies.get(ix).gameObject.name + ", ";
+                else if( rigidbodies.get(ix).name != "" ) out += rigidbodies.get(ix).name + ", ";
+                else out += ix + ", ";
             }
-            System.out.println("|\n");
+            Debug.print( gridBoxes[i].rigidbody.name, out );
         }
 
         // Find any collisions
-        for (int i=0; i < size; i++) {
-            for (int j=i; j < size; j++) {
-                if (i == j) continue;
+        for( int x = 0; x < rows*cols; x++ ) {
+            for (int i=0; i < gridIndexes[x].size(); i++) {
+                for (int j=i; j < gridIndexes[x].size(); j++) {
+//            for (int i=0; i < size; i++) {
+//                for (int j=i; j < size; j++) {
 
-                CollisionManifold result = new CollisionManifold();
-                Rigidbody2D r1 = rigidbodies.get(i);
-                Rigidbody2D r2 = rigidbodies.get(j);
-                Collider2D c1 = r1.getCollider();
-                Collider2D c2 = r2.getCollider();
+                    if (i == j) continue;
 
-                if( c1 instanceof Circle && c2 instanceof Circle ) {
-                    if( !IntersectionDetector2D.circleAndCircle((Circle) c1,(Circle) c2) ) continue;
-                } else if( c1 instanceof Circle ) {
-                    if( !IntersectionDetector2D.circleAndAABB((Circle) c1, (AABB) c2) ) continue;
-                } else if( c2 instanceof Circle ) {
-                    if( !IntersectionDetector2D.circleAndAABB((Circle) c2, (AABB) c1) ) continue;
-                }
+                    CollisionManifold result = new CollisionManifold();
+                    Rigidbody2D r1 = rigidbodies.get(gridIndexes[x].get(i));
+                    Rigidbody2D r2 = rigidbodies.get(gridIndexes[x].get(j));
+//                    Rigidbody2D r1 = rigidbodies.get(i);
+//                    Rigidbody2D r2 = rigidbodies.get(j);
+                    Collider2D c1 = r1.getCollider();
+                    Collider2D c2 = r2.getCollider();
+
+                    if( c1 instanceof Circle && c2 instanceof Circle ) {
+                        if( !IntersectionDetector2D.circleAndCircle((Circle) c1,(Circle) c2) ) continue;
+                    } else if( c1 instanceof Circle ) {
+                        if( !IntersectionDetector2D.circleAndAABB((Circle) c1, (AABB) c2) ) continue;
+                    } else if( c2 instanceof Circle ) {
+                        if( !IntersectionDetector2D.circleAndAABB((Circle) c2, (AABB) c1) ) continue;
+                    }
 
 
 
-                if (c1 != null && c2 != null && !(r1.hasInfiniteMass() && r2.hasInfiniteMass())) {
-                    result = Collisions.findCollisionFeatures(c1, c2);
-                }
+                    if (c1 != null && c2 != null && !(r1.hasInfiniteMass() && r2.hasInfiniteMass())) {
+                        result = Collisions.findCollisionFeatures(c1, c2);
+                    }
 
-                if (result != null && result.isColliding()) {
-                    bodies1.add(r1);
-                    bodies2.add(r2);
-                    collisions.add(result);
+                    if (result != null && result.isColliding()) {
+                        bodies1.add(r1);
+                        bodies2.add(r2);
+                        collisions.add(result);
+                    }
                 }
             }
         }
+
 
         // Update the forces
         forceRegistry.updateForces(fixedUpdate);

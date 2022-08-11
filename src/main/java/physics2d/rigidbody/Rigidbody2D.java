@@ -8,7 +8,7 @@ import physics2d.primitives.Collider2D;
 public class Rigidbody2D extends Component {
     private Transform rawTransform;
     private Collider2D collider;
-
+    public String name = "";
     private Vector2f position = new Vector2f();
     private float rotation = 0.0f;
     private float mass = 0.0f;
