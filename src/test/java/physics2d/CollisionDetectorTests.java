@@ -57,4 +57,21 @@ public class CollisionDetectorTests {
 
         assertTrue(result);
     }
+
+    @Test
+    public void AABBandAABBShouldReturnTrue() {
+        Rigidbody2D r1 = new Rigidbody2D();
+        r1.setRawTransform( new Transform( new Vector2f(1575, 825) );
+        AABB a1 = new AABB( new Vector2f(1000, 1000).mul( 0.5f ) );
+        a1.setRigidbody( r1 );
+
+        Rigidbody2D r2 = new Rigidbody2D();
+        r2.setRawTransform( new Transform( new Vector2f(1865, 500) );
+        AABB a2 = new AABB( new Vector2f(10, 2000) );
+        a2.setRigidbody( r2 );
+
+        Boolean result = IntersectionDetector2D.AABBAndAABB( a1, a2 );
+
+        assertTrue(result);
+    }
 }

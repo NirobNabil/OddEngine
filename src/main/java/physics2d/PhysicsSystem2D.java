@@ -28,7 +28,7 @@ public class PhysicsSystem2D {
     private List<Rigidbody2D> bodies2;
     private List<CollisionManifold> collisions;
 
-    private int cols = 2, rows = 2;
+    private int cols = 2, rows = 3;
     private Vector2f windowSize = new Vector2f( 2100, 1100 );
     private Vector2f cellSize = new Vector2f( windowSize ).mul(new Vector2f( 1.0f/(float)cols, 1.0f/(float)rows ));
     private AABB[] gridBoxes = new AABB[cols*rows];
@@ -110,19 +110,19 @@ public class PhysicsSystem2D {
         }
 
         // Find any collisions
-        for( int x = 0; x < rows*cols; x++ ) {
-            for (int i=0; i < gridIndexes[x].size(); i++) {
-                for (int j=i; j < gridIndexes[x].size(); j++) {
-//            for (int i=0; i < size; i++) {
-//                for (int j=i; j < size; j++) {
+//        for( int x = 0; x < rows*cols; x++ ) {
+//            for (int i=0; i < gridIndexes[x].size(); i++) {
+//                for (int j=i; j < gridIndexes[x].size(); j++) {
+            for (int i=0; i < size; i++) {
+                for (int j=i; j < size; j++) {
 
                     if (i == j) continue;
 
                     CollisionManifold result = new CollisionManifold();
-                    Rigidbody2D r1 = rigidbodies.get(gridIndexes[x].get(i));
-                    Rigidbody2D r2 = rigidbodies.get(gridIndexes[x].get(j));
-//                    Rigidbody2D r1 = rigidbodies.get(i);
-//                    Rigidbody2D r2 = rigidbodies.get(j);
+//                    Rigidbody2D r1 = rigidbodies.get(gridIndexes[x].get(i));
+//                    Rigidbody2D r2 = rigidbodies.get(gridIndexes[x].get(j));
+                    Rigidbody2D r1 = rigidbodies.get(i);
+                    Rigidbody2D r2 = rigidbodies.get(j);
                     Collider2D c1 = r1.getCollider();
                     Collider2D c2 = r2.getCollider();
 
@@ -147,7 +147,7 @@ public class PhysicsSystem2D {
                     }
                 }
             }
-        }
+//        }
 
 
         // Update the forces

@@ -119,7 +119,7 @@ public class RenderBatchCircle extends RenderBatch {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
         if( elementIndicesToUpdate ) {
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
-            elementIndicesToUpdate = false;
+//            elementIndicesToUpdate = false;
         }
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);

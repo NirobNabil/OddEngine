@@ -1,5 +1,6 @@
 package odd;
 
+import imguiLayer.Debug;
 import imguiLayer.ImGuiLayer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -11,6 +12,7 @@ import java.nio.IntBuffer;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13C.GL_MULTISAMPLE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
@@ -51,6 +53,10 @@ public class Window {
                 assert false : "Unknown scene '" + newScene + "'";
                 break;
         }
+    }
+
+    public static void createNewObject(String name, float x, float y, float radius, float mass, Boolean isGravity) {
+        currentScene.addCircleGameObject(name, x, y, radius, mass, isGravity);
     }
 
     public static Window get() {
@@ -126,10 +132,10 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
 
-//        glEnable(GL_BLEND);
-//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-//        glEnable(GL_MULTISAMPLE);
+        glEnable(GL_MULTISAMPLE);
 
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
         this.imGuiLayer.initImGui();

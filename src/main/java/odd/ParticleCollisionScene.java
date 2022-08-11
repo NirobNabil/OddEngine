@@ -48,7 +48,7 @@ public class ParticleCollisionScene extends Scene {
     }
 
 
-    private void addCircleGameObject( String name, float x, float y, float radius, float mass, Boolean isGravity ) {
+    public void addCircleGameObject( String name, float x, float y, float radius, float mass, Boolean isGravity ) {
         GameObject go = new GameObject(
                 name,
                 new Transform(new Vector2f(x, y), new Vector2f(radius*2.0f, radius*2.0f)),
@@ -74,7 +74,7 @@ public class ParticleCollisionScene extends Scene {
         this.addGameObjectToScene(go);
     }
 
-    private void addAABBGameObject( String name, float x, float y, float scaleX, float scaleY, float mass, Boolean isGravity ) {
+    public void addAABBGameObject( String name, float x, float y, float scaleX, float scaleY, float mass, Boolean isGravity ) {
         GameObject go = new GameObject(
                 name,
                 new Transform(new Vector2f(x, y), new Vector2f(scaleX, scaleY)),
