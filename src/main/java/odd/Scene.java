@@ -56,7 +56,7 @@ public abstract class Scene {
         }
     }
 
-    public void addCircleGameObject( String name, float x, float y, float radius, float mass, Boolean isGravity, boolean is_new ) {
+    public void addCircleGameObject(Scene scene, String name, float x, float y, float radius, float mass, Boolean isGravity, boolean is_new, boolean should_throw) {
         GameObject go = new GameObject(
                 name,
                 new Transform(new Vector2f(x, y), new Vector2f(radius*2.0f, radius*2.0f)),
@@ -67,24 +67,22 @@ public abstract class Scene {
         go.addComponent(rb);
         rb.setMass(mass);
         rb.setRawTransform(go.transform);
-        go.addComponent(new CircleRenderer(new Vector4f(0, 1, 0, 1)));
+        go.addComponent(new CircleRenderer(new Vector4f(1, 1, 1, 1)));
 
         Circle c = new Circle();
         c.setRadius(radius);
         c.setRigidbody(rb);
         rb.setCollider(c);
 
-        if( is_new ) {
-            this.physics.addRigidbody(rb, isGravity, true);
-        }else {
-            this.physics.addRigidbody(rb, isGravity, false);
-        }
-        this.physics.throwAt(go, new Vector2f((float)Math.random()*100f, 10f));
+        physics.addRigidbody(rb, isGravity, is_new);
+        float rand = (float)Math.random();
+        float rand2 = (float)Math.random();
+        physics.throwAt(go, new Vector2f(((int)rand%2 == 1 ? -1 : 1 ) * rand * 100f, ((int)rand2%2 == 1 ? -1 : 1 ) * rand2 * 1000f));
 
-        this.addGameObjectToScene(go);
+        addGameObjectToScene(go);
     }
 
-    public void addAABBGameObject( String name, float x, float y, float scaleX, float scaleY, float mass, Boolean isGravity ) {
+    public void addAABBGameObject( Scene scene, String name, float x, float y, float scaleX, float scaleY, float mass, Boolean isGravity ) {
         GameObject go = new GameObject(
                 name,
                 new Transform(new Vector2f(x, y), new Vector2f(scaleX, scaleY)),
@@ -96,16 +94,18 @@ public abstract class Scene {
         rb.setMass(mass);
         rb.setRawTransform(go.transform);
 
-        go.addComponent(new RectangleRenderer(new Vector4f(0, 1, 0, 1), new Vector2f(scaleX, scaleY)));
         Vector2f halfSize = new Vector2f(go.transform.scale).mul(0.5f);
+        go.addComponent(new RectangleRenderer(new Vector4f(0, 1, 0, 1), halfSize));
         AABB r = new AABB(new Vector2f(go.transform.position).sub(halfSize), new Vector2f(go.transform.position).add(halfSize));
         r.setRigidbody(rb);
         rb.setMass(mass);
         rb.setCollider(r);
+        System.out.println(r.getMax().toString());
 
         physics.addRigidbody(rb, isGravity, false);
 
-        this.addGameObjectToScene(go);
+        addGameObjectToScene(go);
 
     }
+
 }

@@ -12,7 +12,7 @@ import physics2d.rigidbody.Rigidbody2D;
 
 public class DemoScene extends Scene {
 
-    PhysicsSystem2D physics = new PhysicsSystem2D(1.0f / 60.0f, new Vector2f(0, -50000));
+//    PhysicsSystem2D physics = new PhysicsSystem2D(1.0f / 60.0f, new Vector2f(0, -50000));
 
     public DemoScene() {
 
@@ -22,11 +22,12 @@ public class DemoScene extends Scene {
     public void init() {
         this.camera = new Camera(new Vector2f(0, 0));
 
-        addAABBGameObject("groundleft", 0, 500, 20, 2000, Float.MAX_VALUE, true );
-        addAABBGameObject("groundbottom", 900, 0, 1920, 20, Float.MAX_VALUE, true );
-        addAABBGameObject("groundtop", 900, 1015, 1920, 20, Float.MAX_VALUE, true );
-        addAABBGameObject("groundright", 1865, 500, 10, 2000, Float.MAX_VALUE, true );
+        addAABBGameObject( this, "groundleft", 0, 500, 20, 2000, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundbottom", 900, 0, 1920, 20, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundtop", 900, 1015, 1920, 20, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundright", 1865, 500, 10, 2000, Float.MAX_VALUE, true );
 
+        addCircleGameObject( this, "objectx", 1000, 100, 20, 20, true, true, false);
     }
 
 

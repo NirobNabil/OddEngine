@@ -25,7 +25,7 @@ public class Window {
     private boolean fadeToBlack = false;
 
     private static Window window = null;
-    private static Scene currentScene;
+    public static Scene currentScene;
 
     private Window() {
         this.width = 1920;
@@ -55,8 +55,8 @@ public class Window {
         }
     }
 
-    public static void createNewObject(String name, float x, float y, float radius, float mass, Boolean isGravity) {
-        currentScene.addCircleGameObject(name, x, y, radius, mass, isGravity, true);
+    public static void createNewObject(String name, float x, float y, float radius, float mass, Boolean isGravity, boolean should_throw) {
+        currentScene.addCircleGameObject(currentScene, name, x, y, radius, mass, isGravity, true, should_throw);
     }
 
     public static Window get() {

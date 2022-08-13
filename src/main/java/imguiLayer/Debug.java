@@ -1,6 +1,7 @@
 package imguiLayer;
 
 import imgui.ImGui;
+import odd.ParticleCollisionScene;
 import odd.Window;
 
 import java.util.HashMap;
@@ -38,7 +39,18 @@ public class Debug extends imguiWindow {
 
         if(ifClicked == true) {
             counter++;
-            Window.createNewObject("objectx", input[0], input[1], input[2], input[3], false);
+            if( Window.get().currentScene instanceof ParticleCollisionScene )
+                Window.createNewObject("objectx", input[0], input[1], input[2], input[3], false, true);
+            else
+                Window.createNewObject("objectx", input[0], input[1], input[2], input[3], true, false);
+
+        }
+
+        boolean change_scene = ImGui.button("Change Scene");
+        if( change_scene ) {
+            if( Window.get().currentScene instanceof ParticleCollisionScene )
+                Window.get().changeScene( 1 );
+            else Window.get().changeScene( 0 );
         }
 
         ImGui.end();

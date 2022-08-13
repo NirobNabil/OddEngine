@@ -205,6 +205,11 @@ public class PhysicsSystem2D {
 
         // Relative velocity
         Vector2f relativeVel = new Vector2f(b.getVelocity()).sub(a.getVelocity());
+        if( a.gameObject.name == "objectx" ) Debug.print("ebug", String.valueOf(relativeVel.length()));
+        if( new Vector2f(relativeVel).absolute().length() < 100 ) {
+            System.out.println("wow came");
+            a.setVelocity( a.getVelocity().mul(new Vector2f(0, 0)) ); // THIS IS A HACK THAT WORKS ONLY TO DISABLE Y VELOCITY WHEN CLOSE TO GROUND
+        }
         Vector2f relativeNormal = new Vector2f(m.getNormal()).normalize();
 //        Debug.print("w", a.gameObject.name + "-" + b.gameObject.name + " = " + relativeVel.dot(relativeNormal));
         // Moving away from each other? Do nothing
@@ -229,7 +234,6 @@ public class PhysicsSystem2D {
     }
 
     public void addRigidbody(Rigidbody2D body, boolean addGravity, boolean is_new) {
-        System.out.println("cake22");
         if( is_new ) {
             this.rigidbodies.add(0, body);
         } else {
