@@ -29,9 +29,9 @@ public class ParticleCollisionScene extends Scene {
         int yOffset = 100;
 
         // starts laying out objects from bottom-left
-        int objects_in_row = 2, number_of_rows = 2;
-        float object_size = 20f;
-        float padding = 10f;
+        int objects_in_row = 80, number_of_rows = 80;
+        float object_size = 7f;
+        float padding = 7f;
         Vector2f starting_pos = new Vector2f(0, 0);
 
         for (int i = 0; i < number_of_rows; i++) {
@@ -42,17 +42,11 @@ public class ParticleCollisionScene extends Scene {
             }
         }
 
-//        addCircleGameObject("ggg", 00,0,50, 10000000, false, false);
 
-//        addAABBGameObject("groundleft", 100, 500, 20, 2000, Float.MAX_VALUE, true );
-//        addAABBGameObject("groundbottom", 900, 100, 1920, 20, Float.MAX_VALUE, true );
-//        addAABBGameObject("groundtop", 900, 900, 1920, 20, Float.MAX_VALUE, true );
-//        addAABBGameObject("groundright", 1765, 500, 10, 2000, Float.MAX_VALUE, true );
-
-        addAABBGameObject( this, "ground_bottom", 935, 0, 1870, 10, Float.MAX_VALUE, false );
-        addAABBGameObject( this, "ground_top", 935, 1020, 1870, 10, Float.MAX_VALUE, false );
-        addAABBGameObject( this, "ground_left", 0, 500, 20, 1080, Float.MAX_VALUE, false );
-        addAABBGameObject( this, "ground_right", 1870, 500, 20, 1080, Float.MAX_VALUE, false );
+        addAABBGameObject( this, "groundleft", 0, 500, 20, 1800, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundbottom", 900, 0, 1920, 20, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundtop", 900, 1015, 1920, 20, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundright", 1855, 500, 10, 2000, Float.MAX_VALUE, true );
 //        addAABBGameObject( "lol1", 10, 50, 1, 100, Float.MAX_VALUE, false );
 
 

@@ -77,7 +77,7 @@ public abstract class Scene {
         physics.addRigidbody(rb, isGravity, is_new);
         float rand = (float)Math.random();
         float rand2 = (float)Math.random();
-        physics.throwAt(go, new Vector2f(((int)rand%2 == 1 ? -1 : 1 ) * rand * 100f, ((int)rand2%2 == 1 ? -1 : 1 ) * rand2 * 1000f));
+        physics.throwAt(go, new Vector2f(((int)rand%2 == 1 ? -1 : 1 ) * rand * 100f, ((int)rand2%2 == 1 ? -1 : 1 ) * rand2 * 100f));
 
         addGameObjectToScene(go);
     }

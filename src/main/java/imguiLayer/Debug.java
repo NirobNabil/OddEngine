@@ -24,8 +24,8 @@ public class Debug extends imguiWindow {
     public void update() {
 //        System.out.println("updated");
         ImGui.newFrame();
-        ImGui.begin("Debug Text");
-        ImGui.setWindowSize("Debug Text", 400, 500 );
+        ImGui.begin("Control Unit");
+        ImGui.setWindowSize("Control Unit", 800, 500 );
 
         for( String key : messages.keySet() ) {
             ImGui.text(key + ": " + messages.get(key));
