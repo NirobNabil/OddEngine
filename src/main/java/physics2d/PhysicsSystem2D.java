@@ -173,6 +173,7 @@ public class PhysicsSystem2D {
                 for (int j=0; j < jSize; j++) {
                     Rigidbody2D r1 = bodies1.get(i);
                     Rigidbody2D r2 = bodies2.get(i);
+                    r1.clearAccumulators();
                     applyImpulse(r1, r2, collisions.get(i));
                 }
             }
@@ -205,10 +206,9 @@ public class PhysicsSystem2D {
 
         // Relative velocity
         Vector2f relativeVel = new Vector2f(b.getVelocity()).sub(a.getVelocity());
-        if( a.gameObject.name == "objectx" ) Debug.print("ebug", String.valueOf(relativeVel.length()));
-        if( new Vector2f(relativeVel).absolute().length() < 100 ) {
-            System.out.println("wow came");
-            a.setVelocity( a.getVelocity().mul(new Vector2f(0, 0)) ); // THIS IS A HACK THAT WORKS ONLY TO DISABLE Y VELOCITY WHEN CLOSE TO GROUND
+        if( a.gameObject.name == "objectx" ) {
+            Debug.print("ebug", String.valueOf(new Vector2f(relativeVel).absolute().length()));
+            Debug.print("ebug2", a.getVelocity().toString());
         }
         Vector2f relativeNormal = new Vector2f(m.getNormal()).normalize();
 //        Debug.print("w", a.gameObject.name + "-" + b.gameObject.name + " = " + relativeVel.dot(relativeNormal));

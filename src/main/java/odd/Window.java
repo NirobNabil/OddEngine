@@ -141,7 +141,7 @@ public class Window {
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
         this.imGuiLayer.initImGui();
 
-        Window.changeScene(0);
+        Window.changeScene(1);
     }
 
     public void loop() {
@@ -157,7 +157,7 @@ public class Window {
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (dt >= 0) {
+            if (dt > 0) {
                 currentScene.update(dt);
                 this.imGuiLayer.update(dt);
             }

@@ -22,12 +22,16 @@ public class DemoScene extends Scene {
     public void init() {
         this.camera = new Camera(new Vector2f(0, 0));
 
-        addAABBGameObject( this, "groundleft", 0, 500, 20, 2000, Float.MAX_VALUE, true );
-        addAABBGameObject(this, "groundbottom", 900, 0, 1920, 20, Float.MAX_VALUE, true );
+        addAABBGameObject( this, "groundleft", 0, 500, 20, 1800, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundbottom", 900, 100, 1920, 20, Float.MAX_VALUE, true );
         addAABBGameObject(this, "groundtop", 900, 1015, 1920, 20, Float.MAX_VALUE, true );
-        addAABBGameObject(this, "groundright", 1865, 500, 10, 2000, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundright", 1855, 500, 10, 2000, Float.MAX_VALUE, true );
 
-        addCircleGameObject( this, "objectx", 1000, 100, 20, 20, true, true, false);
+        addAABBGameObject(this, "groundright", 500, 500, 300, 50, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundright", 1200, 300, 300, 50, Float.MAX_VALUE, true );
+        addAABBGameObject(this, "groundright", 1050, 700, 300, 50, Float.MAX_VALUE, true );
+
+        addCircleGameObject( this, "objectx", 1000, 200, 20, 20, true, true, false);
     }
 
 

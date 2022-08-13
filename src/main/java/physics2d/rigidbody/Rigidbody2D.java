@@ -1,5 +1,6 @@
 package physics2d.rigidbody;
 
+import imguiLayer.Debug;
 import odd.Component;
 import odd.Transform;
 import org.joml.Vector2f;
@@ -19,6 +20,7 @@ public class Rigidbody2D extends Component {
     private float angularVelocity = 0.0f;
     private float linearDamping = 0.0f;
     private float angularDamping = 0.0f;
+    private float friction = 10f;
 
     // Coefficient of restitution
     private float cor = 1.0f;
@@ -31,6 +33,9 @@ public class Rigidbody2D extends Component {
 
     public void physicsUpdate(float dt) {
         if (this.mass == 0.0f) return;
+
+        forceAccum.add( new Vector2f(linearVelocity).mul( -friction) );
+        Debug.print("xxxxx", forceAccum.toString());
 
         // Calculate linear velocity
         Vector2f acceleration = new Vector2f(forceAccum).mul(this.inverseMass);
