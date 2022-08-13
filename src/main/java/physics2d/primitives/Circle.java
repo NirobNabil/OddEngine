@@ -4,7 +4,7 @@ import org.joml.Vector2f;
 import physics2d.rigidbody.Rigidbody2D;
 
 public class Circle extends Collider2D {
-    private float radius = 1.0f;
+    public float radius = 1.0f;
     public String name = "";
 
     private Rigidbody2D rigidbody = null;

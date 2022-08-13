@@ -56,7 +56,7 @@ public abstract class Scene {
         }
     }
 
-    public void addCircleGameObject( String name, float x, float y, float radius, float mass, Boolean isGravity ) {
+    public void addCircleGameObject( String name, float x, float y, float radius, float mass, Boolean isGravity, boolean is_new ) {
         GameObject go = new GameObject(
                 name,
                 new Transform(new Vector2f(x, y), new Vector2f(radius*2.0f, radius*2.0f)),
@@ -74,7 +74,11 @@ public abstract class Scene {
         c.setRigidbody(rb);
         rb.setCollider(c);
 
-        this.physics.addRigidbody(rb, isGravity);
+        if( is_new ) {
+            this.physics.addRigidbody(rb, isGravity, true);
+        }else {
+            this.physics.addRigidbody(rb, isGravity, false);
+        }
         this.physics.throwAt(go, new Vector2f((float)Math.random()*100f, 10f));
 
         this.addGameObjectToScene(go);
@@ -99,7 +103,7 @@ public abstract class Scene {
         rb.setMass(mass);
         rb.setCollider(r);
 
-        physics.addRigidbody(rb, isGravity);
+        physics.addRigidbody(rb, isGravity, false);
 
         this.addGameObjectToScene(go);
 

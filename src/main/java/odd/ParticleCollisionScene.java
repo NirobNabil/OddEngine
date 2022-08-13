@@ -1,7 +1,9 @@
 package odd;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import components.CircleRenderer;
 import components.RectangleRenderer;
+import imguiLayer.Debug;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import physics2d.PhysicsSystem2D;
@@ -23,12 +25,12 @@ public class ParticleCollisionScene extends Scene {
     public void init() {
         this.camera = new Camera(new Vector2f(0, 0));
 
-        int xOffset = 10;
-        int yOffset = 10;
+        int xOffset = 100;
+        int yOffset = 100;
 
         // starts laying out objects from bottom-left
-        int objects_in_row = 50, number_of_rows = 50;
-        float object_size = 7f;
+        int objects_in_row = 2, number_of_rows = 2;
+        float object_size = 20f;
         float padding = 10f;
         Vector2f starting_pos = new Vector2f(0, 0);
 
@@ -36,19 +38,28 @@ public class ParticleCollisionScene extends Scene {
             for (int ix = 0; ix < objects_in_row; ix++) {
                 float x = starting_pos.x + (object_size + padding) * ix + xOffset;
                 float y = starting_pos.y + (object_size + padding) * i + yOffset;
-                addCircleGameObject(i+"."+ix, x,y,object_size/2.0f, (i+1)*(ix+1)*800, false);
+                addCircleGameObject(i+"."+ix, x,y,object_size/2.0f, (i+1)*(ix+1)*800, false, false);
             }
         }
 
-        addAABBGameObject("groundleft", 0, 500, 20, 2000, Float.MAX_VALUE, true );
-        addAABBGameObject("groundbottom", 900, 0, 1920, 20, Float.MAX_VALUE, true );
-        addAABBGameObject("groundtop", 900, 1015, 1920, 20, Float.MAX_VALUE, true );
-        addAABBGameObject("groundright", 1865, 500, 10, 2000, Float.MAX_VALUE, true );
+//        addCircleGameObject("ggg", 00,0,50, 10000000, false, false);
+
+//        addAABBGameObject("groundleft", 100, 500, 20, 2000, Float.MAX_VALUE, true );
+//        addAABBGameObject("groundbottom", 900, 100, 1920, 20, Float.MAX_VALUE, true );
+//        addAABBGameObject("groundtop", 900, 900, 1920, 20, Float.MAX_VALUE, true );
+//        addAABBGameObject("groundright", 1765, 500, 10, 2000, Float.MAX_VALUE, true );
+
+        addAABBGameObject( "ground_bottom", 935, 0, 1870, 10, Float.MAX_VALUE, false );
+        addAABBGameObject( "ground_top", 935, 1020, 1870, 10, Float.MAX_VALUE, false );
+        addAABBGameObject( "lol3", 0, 500, 20, 1080, Float.MAX_VALUE, false );
+        addAABBGameObject( "lol4", 1870, 500, 20, 1080, Float.MAX_VALUE, false );
+//        addAABBGameObject( "lol1", 10, 50, 1, 100, Float.MAX_VALUE, false );
+
 
     }
 
 
-    public void addCircleGameObject( String name, float x, float y, float radius, float mass, Boolean isGravity ) {
+    public void addCircleGameObject(String name, float x, float y, float radius, float mass, Boolean isGravity, boolean is_new) {
         GameObject go = new GameObject(
                 name,
                 new Transform(new Vector2f(x, y), new Vector2f(radius*2.0f, radius*2.0f)),
@@ -59,17 +70,17 @@ public class ParticleCollisionScene extends Scene {
         go.addComponent(rb);
         rb.setMass(mass);
         rb.setRawTransform(go.transform);
-        go.addComponent(new CircleRenderer(new Vector4f(0, 1, 0, 1)));
+        go.addComponent(new CircleRenderer(new Vector4f(1, 1, 1, 1)));
 
         Circle c = new Circle();
         c.setRadius(radius);
         c.setRigidbody(rb);
         rb.setCollider(c);
 
-        physics.addRigidbody(rb, isGravity);
+        physics.addRigidbody(rb, isGravity, is_new);
         float rand = (float)Math.random();
         float rand2 = (float)Math.random();
-        physics.throwAt(go, new Vector2f(((int)rand%2 == 1 ? -1 : 1 ) * rand *100f, (rand2%2 == 1 ? -1 : 1 ) * rand2 *100f));
+        physics.throwAt(go, new Vector2f(((int)rand%2 == 1 ? -1 : 1 ) * rand * 100f, ((int)rand2%2 == 1 ? -1 : 1 ) * rand2 * 1000f));
 
         this.addGameObjectToScene(go);
     }
@@ -86,22 +97,27 @@ public class ParticleCollisionScene extends Scene {
         rb.setMass(mass);
         rb.setRawTransform(go.transform);
 
-        go.addComponent(new RectangleRenderer(new Vector4f(0, 1, 0, 1), new Vector2f(scaleX, scaleY)));
         Vector2f halfSize = new Vector2f(go.transform.scale).mul(0.5f);
+        go.addComponent(new RectangleRenderer(new Vector4f(0, 1, 0, 1), halfSize));
         AABB r = new AABB(new Vector2f(go.transform.position).sub(halfSize), new Vector2f(go.transform.position).add(halfSize));
         r.setRigidbody(rb);
         rb.setMass(mass);
         rb.setCollider(r);
+        System.out.println(r.getMax().toString());
 
-        physics.addRigidbody(rb, isGravity);
+        physics.addRigidbody(rb, isGravity, false);
 
         this.addGameObjectToScene(go);
 
     }
 
+    private int counter = 0;
+    private boolean to_spawn = true;
     @Override
     public void update(float dt) {
 //        // System.out.println("FPS: " + (1.0f / dt));
+
+//        Debug.print("##", String.valueOf(MouseListener.get().mouseButtonDown(0)));
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);

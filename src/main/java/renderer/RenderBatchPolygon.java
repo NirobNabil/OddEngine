@@ -76,9 +76,6 @@ public class RenderBatchPolygon extends RenderBatch {
         glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, COLOR_OFFSET);
         glEnableVertexAttribArray(1);
 
-        for( int i=0; i<15; i++ ) {
-            System.out.println(String.valueOf(i) + " - " + String.valueOf(elementIndices[i]));
-        }
     }
 
     public void addShape(ShapeRenderer spr) {

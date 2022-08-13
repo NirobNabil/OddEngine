@@ -30,13 +30,13 @@ out vec4 color;
 
 void main()
 {
-//    if( distance( fcenterPos, gl_FragCoord.xyz ) > fradius ) color = vec4(0.0f);
-//    color = smoothstep( 0.0, 0.05f,  vec4(vec3(1.0f) - distance( fcenterPos, gl_FragCoord.xyz )/vec3(fradius), 1.0));
-//    color = color * fColor;
-//    if( lessThan(color.xyz, vec3(1.0f)) == bvec3(true) ) color = vec4( color.xyz, max( max(color.x, color.y), color.z ) );
+    if( distance( fcenterPos, gl_FragCoord.xyz ) > fradius ) color = vec4(0.0f);
+    color = smoothstep( 0.0, 0.05f,  vec4(vec3(1.0f) - distance( fcenterPos, gl_FragCoord.xyz )/vec3(fradius), 1.0));
+    color = color * fColor;
+    if( lessThan(color.xyz, vec3(1.0f)) == bvec3(true) ) color = vec4( color.xyz, max( max(color.x, color.y), color.z ) );
 //    color = vec4(distance( fcenterPos, gl_FragCoord.xyz ), 0.0f, 0.0f, 1.0f);
 //    color = smoothstep(fradius,fradius+1,color);
-    color = vec4(1.0f, 0,0, 1.0f);
+//    color = vec4(1.0f, 0,0, 1.0f);
 }
 
 

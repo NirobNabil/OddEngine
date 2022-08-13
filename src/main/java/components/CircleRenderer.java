@@ -59,7 +59,7 @@ public class CircleRenderer extends ShapeRenderer {
     }
 
     public Vector2f getCenter() {
-        return new Vector2f(this.radius, this.radius);
+        return new Vector2f(0,0);
     }
 
     // TODO: Optimize this?
@@ -77,10 +77,10 @@ public class CircleRenderer extends ShapeRenderer {
 
     private Vector2f[] generateIdentity() {
         return new Vector2f[]{
-            new Vector2f( 0, 0),
-            new Vector2f( 1, 0),
-            new Vector2f( 1, 1),
-            new Vector2f( 0, 1)
+            new Vector2f( -0.5f, -0.5f),
+            new Vector2f( 0.5f, -0.5f),
+            new Vector2f( 0.5f, 0.5f),
+            new Vector2f( -0.5f, 0.5f)
         };
     }
 }

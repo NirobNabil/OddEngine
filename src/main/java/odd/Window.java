@@ -45,7 +45,7 @@ public class Window {
                 currentScene.start();
                 break;
             case 1:
-                currentScene = new LevelScene();
+                currentScene = new DemoScene();
                 currentScene.init();
                 currentScene.start();
                 break;
@@ -56,7 +56,7 @@ public class Window {
     }
 
     public static void createNewObject(String name, float x, float y, float radius, float mass, Boolean isGravity) {
-        currentScene.addCircleGameObject(name, x, y, radius, mass, isGravity);
+        currentScene.addCircleGameObject(name, x, y, radius, mass, isGravity, true);
     }
 
     public static Window get() {
@@ -87,6 +87,7 @@ public class Window {
     }
 
     public void init() {
+
         // Setup an error callback
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -158,6 +159,7 @@ public class Window {
 
             if (dt >= 0) {
                 currentScene.update(dt);
+                this.imGuiLayer.update(dt);
             }
 
 //            System.out.println("x: " + MouseListener.getX() + " y: " + MouseListener.getY());
@@ -167,7 +169,6 @@ public class Window {
             this.width = w.get(0);
             this.height = h.get(0);
 
-            this.imGuiLayer.update(dt);
 
             glfwSwapBuffers(glfwWindow);
 

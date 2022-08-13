@@ -1,5 +1,6 @@
 package odd;
 
+import imguiLayer.Debug;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
@@ -31,7 +32,7 @@ public class MouseListener {
     }
 
     public static void mousePosCallback(long window, double xpos, double ypos) {
-//        // System.out.println(new Vector2f((float)xpos, (float)ypos));
+        Debug.print("mouse", new Vector2f((float)xpos, (float)ypos).toString());
         get().lastX = get().xPos;
         get().lastY = get().yPos;
         get().xPos = xpos;
@@ -40,6 +41,9 @@ public class MouseListener {
     }
 
     public static void mouseButtonCallback(long window, int button, int action, int mods) {
+
+        Debug.print("mouse clicked", String.valueOf(button));
+
         if (action == GLFW_PRESS) {
             if (button < get().mouseButtonPressed.length) {
                 get().mouseButtonPressed[button] = true;

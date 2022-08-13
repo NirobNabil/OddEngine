@@ -69,7 +69,7 @@ public class RenderBatchCircle extends RenderBatch {
         // Allocate space for vertices
         vboID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferData(GL_ARRAY_BUFFER, vertices.length * Float.BYTES, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, (vertices.length+100) * Float.BYTES, GL_DYNAMIC_DRAW);
 
         eboID = glGenBuffers();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
@@ -117,10 +117,11 @@ public class RenderBatchCircle extends RenderBatch {
         }
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
-        if( elementIndicesToUpdate ) {
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
+//        if( elementIndicesToUpdate ) {
+        glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, elementIndices);
+//            glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementIndices, GL_STATIC_DRAW);
 //            elementIndicesToUpdate = false;
-        }
+//        }
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 

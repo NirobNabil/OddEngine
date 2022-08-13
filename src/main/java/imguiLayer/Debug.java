@@ -12,7 +12,7 @@ public class Debug extends imguiWindow {
 
     public static void print(String key, String b) {
         messages.put(key, b);
-        System.out.println(messages.keySet().size());
+//        System.out.println(messages.keySet().size());
     }
 
 
@@ -21,7 +21,7 @@ public class Debug extends imguiWindow {
     }
 
     public void update() {
-        System.out.println("updated");
+//        System.out.println("updated");
         ImGui.newFrame();
         ImGui.begin("Debug Text");
         ImGui.setWindowSize("Debug Text", 400, 500 );
@@ -33,12 +33,12 @@ public class Debug extends imguiWindow {
         ImGui.separator();
         ImGui.text("Input x, y, radius and mass:");
         ImGui.inputFloat4("##", input);
-        System.out.println(input[0] + " " + input[1]);
+//        System.out.println(input[0] + " " + input[1]);
         boolean ifClicked = ImGui.button("Create Object");
 
         if(ifClicked == true) {
             counter++;
-            Window.createNewObject("object "+counter, input[0], input[1], input[2], input[3], true);
+            Window.createNewObject("objectx", input[0], input[1], input[2], input[3], false);
         }
 
         ImGui.end();

@@ -274,13 +274,19 @@ public class IntersectionDetector2D {
         }
 
         Vector2f closestPointToCircle = new Vector2f(circle.getCenter());
-        if (closestPointToCircle.x < min.x) {
+//        if ( closestPointToCircle.x > min.x && closestPointToCircle.x < max.x ) {
+//            closestPointToCircle.x = circle.getCenter().x;
+//        } else
+            if (closestPointToCircle.x < min.x) {
             closestPointToCircle.x = min.x;
         } else if (closestPointToCircle.x > max.x) {
             closestPointToCircle.x = max.x;
         }
 
-        if (closestPointToCircle.y < min.y) {
+//        if ( closestPointToCircle.y > min.y && closestPointToCircle.y < max.y ) {
+//            closestPointToCircle.y = circle.getCenter().y;
+//        } else
+            if (closestPointToCircle.y < min.y) {
             closestPointToCircle.y = min.y;
         } else if (closestPointToCircle.y > max.y) {
             closestPointToCircle.y = max.y;

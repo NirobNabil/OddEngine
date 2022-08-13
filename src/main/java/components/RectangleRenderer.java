@@ -60,10 +60,10 @@ public class RectangleRenderer extends ShapeRenderer {
 
     private Vector2f[] generateIdentity() {
         return new Vector2f[] {
-                new Vector2f( -0.5f, -0.5f),
-                new Vector2f( 0.5f, -0.5f),
-                new Vector2f( 0.5f, 0.5f),
-                new Vector2f( -0.5f, 0.5f)
+                new Vector2f( -1, -1),
+                new Vector2f( 1f, -1f),
+                new Vector2f( 1f, 1f),
+                new Vector2f( -1f, 1f)
         };
     }
 }
