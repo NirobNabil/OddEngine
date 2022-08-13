@@ -1,31 +1,36 @@
 package odd;
 
-import org.lwjgl.Version;
+import imguiLayer.Debug;
+import imguiLayer.ImGuiLayer;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import util.Time;
 
+import java.nio.IntBuffer;
+
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13C.GL_MULTISAMPLE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-    private int width, height;
+    public static int width, height;
     private String title;
     private long glfwWindow;
+    private ImGuiLayer imGuiLayer;
 
     public float r, g, b, a;
     private boolean fadeToBlack = false;
 
     private static Window window = null;
-
-    private static Scene currentScene;
+    public static Scene currentScene;
 
     private Window() {
         this.width = 1920;
         this.height = 1080;
-        this.title = "Mario";
+        this.title = "Odd";
         r = 0;
         b = 0;
         g = 0;
@@ -35,12 +40,12 @@ public class Window {
     public static void changeScene(int newScene) {
         switch (newScene) {
             case 0:
-                currentScene = new LevelEditorScene();
+                currentScene = new ParticleCollisionScene();
                 currentScene.init();
                 currentScene.start();
                 break;
             case 1:
-                currentScene = new LevelScene();
+                currentScene = new DemoScene();
                 currentScene.init();
                 currentScene.start();
                 break;
@@ -48,6 +53,10 @@ public class Window {
                 assert false : "Unknown scene '" + newScene + "'";
                 break;
         }
+    }
+
+    public static void createNewObject(String name, float x, float y, float radius, float mass, Boolean isGravity, boolean should_throw) {
+        currentScene.addCircleGameObject(currentScene, name, x, y, radius, mass, isGravity, true, should_throw);
     }
 
     public static Window get() {
@@ -63,7 +72,7 @@ public class Window {
     }
 
     public void run() {
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+        // System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
         init();
         loop();
@@ -78,6 +87,7 @@ public class Window {
     }
 
     public void init() {
+
         // Setup an error callback
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -91,7 +101,7 @@ public class Window {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-        glfwWindowHint(GLFW_SAMPLES, 8);
+        glfwWindowHint(GLFW_SAMPLES, 4);  // EXPERIMENTAL
 
         // Create the window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
@@ -103,6 +113,10 @@ public class Window {
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
@@ -119,7 +133,15 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
 
-        Window.changeScene(0);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glEnable(GL_MULTISAMPLE);
+
+        this.imGuiLayer = new ImGuiLayer(glfwWindow);
+        this.imGuiLayer.initImGui();
+
+        Window.changeScene(1);
     }
 
     public void loop() {
@@ -130,13 +152,23 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)) {
             // Poll events
             glfwPollEvents();
+            // EXPERIMENTAL
 
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (dt >= 0) {
+            if (dt > 0) {
                 currentScene.update(dt);
+                this.imGuiLayer.update(dt);
             }
+
+//            System.out.println("x: " + MouseListener.getX() + " y: " + MouseListener.getY());
+            IntBuffer w = BufferUtils.createIntBuffer(1);
+            IntBuffer h = BufferUtils.createIntBuffer(1);
+            glfwGetWindowSize(glfwWindow, w, h);
+            this.width = w.get(0);
+            this.height = h.get(0);
+
 
             glfwSwapBuffers(glfwWindow);
 
@@ -144,5 +176,13 @@ public class Window {
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+    }
+
+    public static void setWidth(int newWidth) {
+        get().width = newWidth;
+    }
+
+    public static void setHeight(int newHeight) {
+        get().height = newHeight;
     }
 }

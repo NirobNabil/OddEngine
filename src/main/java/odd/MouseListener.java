@@ -1,15 +1,18 @@
 package odd;
 
+import imguiLayer.Debug;
+import org.joml.Vector2f;
+
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 public class MouseListener {
-    private static MouseListener instance = null;
-
+    private static MouseListener instance;
     private double scrollX, scrollY;
     private double xPos, yPos, lastY, lastX;
     private boolean mouseButtonPressed[] = new boolean[3];
     private boolean isDragging;
+    public GameObject draggingObject = null;   // gameobject the mouse is currently dragging. is set by handleDragging function of gameobject
 
     private MouseListener() {
         this.scrollX = 0.0;
@@ -21,15 +24,15 @@ public class MouseListener {
     }
 
     public static MouseListener get() {
-        if( MouseListener.instance == null ) {
+        if (MouseListener.instance == null) {
             MouseListener.instance = new MouseListener();
         }
 
         return MouseListener.instance;
     }
 
-    // called when the mouse moves
     public static void mousePosCallback(long window, double xpos, double ypos) {
+        Debug.print("mouse", new Vector2f((float)xpos, (float)ypos).toString());
         get().lastX = get().xPos;
         get().lastY = get().yPos;
         get().xPos = xpos;
@@ -39,18 +42,21 @@ public class MouseListener {
 
     public static void mouseButtonCallback(long window, int button, int action, int mods) {
 
-        if(button >= get().mouseButtonPressed.length)
-            return;
+        Debug.print("mouse clicked", String.valueOf(button));
 
         if (action == GLFW_PRESS) {
-            get().mouseButtonPressed[button] = true;
-        }else if( action == GLFW_RELEASE ) {
-            get().mouseButtonPressed[button] = false;
-            get().isDragging = false;
+            if (button < get().mouseButtonPressed.length) {
+                get().mouseButtonPressed[button] = true;
+            }
+        } else if (action == GLFW_RELEASE) {
+            if (button < get().mouseButtonPressed.length) {
+                get().mouseButtonPressed[button] = false;
+                get().isDragging = false;
+                get().draggingObject = null;
+            }
         }
     }
 
-    // is it mandatory to fetch the instance with get if the method is static?
     public static void mouseScrollCallback(long window, double xOffset, double yOffset) {
         get().scrollX = xOffset;
         get().scrollY = yOffset;
@@ -68,7 +74,7 @@ public class MouseListener {
     }
 
     public static float getY() {
-        return (float)get().yPos;
+        return Window.get().height - (float)get().yPos;
     }
 
     public static float getDx() {

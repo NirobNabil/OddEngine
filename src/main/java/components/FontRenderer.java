@@ -2,14 +2,12 @@ package components;
 
 import odd.Component;
 
-import java.awt.font.FontRenderContext;
-
 public class FontRenderer extends Component {
 
     @Override
     public void start() {
-        if (gameObject.getComponent(SpriteRenderer.class) != null) {
-            System.out.println("Found Font Renderer!");
+        if (gameObject.getComponent(TriangleRenderer.class) != null) {
+            // System.out.println("Found Font Renderer!");
         }
     }
 
